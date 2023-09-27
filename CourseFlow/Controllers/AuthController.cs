@@ -23,6 +23,21 @@ public class AuthController : ControllerBase
         _configuration = configuration;
         _userService = userService;
     }
+    
+    
+    // [HttpPost("user/{id:guid}")]
+    // public ActionResult<User> GetUserById(Guid id)
+    // {
+    //     var user = userRepository.GetUser(id);
+    //     return Ok(user);
+    // }
+    //
+    // [HttpPost("{token}")]
+    // public ActionResult<User> GetUserByToken(string token)
+    // {
+    //     var user = userRepository.getUserByToken(token);
+    //     return Ok(user);
+    // }
 
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register(UserRegisterDto request)
