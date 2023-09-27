@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/User';
 import { Observable } from 'rxjs';
-import { UserRegister } from '../interfaces/UserRegister';
-import { UserLogin } from '../interfaces/UserLogin';
+import { User } from 'src/interfaces/User';
+import { UserLogin } from 'src/interfaces/UserLogin';
+import { UserRegister } from 'src/interfaces/UserRegister';
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +21,11 @@ export class AuthService {
     return this._http.post(`${this.url}/login`, user, { responseType: 'text' });
   }
 
-  public getUserWithToken(token: string): Observable<User> {
-    return this._http.post<User>(`${this.host}/${token}`, {});
-  }
+  // public getUserWithToken(token: string): Observable<User> {
+  //   return this._http.post<User>(`${this.host}/${token}`, {});
+  // }
 
-  public getUserWithId(id: string): Observable<User> {
-    return this._http.post<User>(`${this.host}/user/${id}`, {});
-  }
+  // public getUserWithId(id: string): Observable<User> {
+  //   return this._http.post<User>(`${this.host}/user/${id}`, {});
+  // }
 }
