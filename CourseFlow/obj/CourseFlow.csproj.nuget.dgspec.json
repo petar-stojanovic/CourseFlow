@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow.csproj": {}
+    "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\CourseFlow.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow.csproj": {
+    "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\CourseFlow.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow.csproj",
+        "projectUniqueName": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\CourseFlow.csproj",
         "projectName": "CourseFlow",
-        "projectPath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow.csproj",
+        "projectPath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\CourseFlow.csproj",
         "packagesPath": "C:\\Users\\Petar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\obj\\",
+        "outputPath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Petar\\AppData\\Roaming\\NuGet\\NuGet.Config",

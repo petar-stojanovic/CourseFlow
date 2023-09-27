@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fEfL0q23aEDI2X9lcXEm5+h2MJRz5NcwLVBq/tlAWEeZstTDD/3LwlXVcxfRYoNV+ha9cwEECThrEJydCyF9SA==",
+  "dgSpecHash": "Y7UzLz4xJ/2OEAzbg0cNeV8Np1damCk6pja8vdFdk0VdL4YeAJuZ+ZxYPcE6KO5WsfyvQZmjePzUeRnh9jyarg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow.csproj",
+  "projectFilePath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\CourseFlow.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Petar\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\Petar\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

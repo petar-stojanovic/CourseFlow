@@ -65,6 +65,26 @@ public class AuthController : ControllerBase
         return Ok(token);
     }
 
+    // [HttpPost("refresh-token")]
+    // public async Task<ActionResult<string>> RefreshToken()
+    // {
+    //     var refreshToken = Request.Cookies["refreshToken"];
+    //
+    //     if (!user.RefreshToken.Equals(refreshToken))
+    //     {
+    //         return Unauthorized("Invalid Refresh Token.");
+    //     }
+    //     else if(user.TokenExpires < DateTime.Now)
+    //     {
+    //         return Unauthorized("Token expired.");
+    //     }
+    //
+    //     string token = CreateToken(user);
+    //     var newRefreshToken = GenerateRefreshToken();
+    //     SetRefreshToken(newRefreshToken);
+    //
+    //     return Ok(token);
+    // }
 
     private RefreshToken GenerateRefreshToken()
     {
