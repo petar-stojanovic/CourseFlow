@@ -7,9 +7,15 @@ import { User } from 'src/interfaces/User';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-
   @Input()
   user: User | undefined;
 
-  constructor(){}
+  constructor() {
+    console.log(this.user);
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    location.href = '/';
+  }
 }

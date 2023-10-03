@@ -1,4 +1,4 @@
-﻿using CourseFlow.Models.User;
+﻿using CourseFlow.Models;
 
 namespace CourseFlow.Services.UserService;
 

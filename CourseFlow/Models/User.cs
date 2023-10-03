@@ -1,4 +1,4 @@
-﻿namespace CourseFlow.Models.User;
+﻿namespace CourseFlow.Models;
 
 public class User: BaseEntity
 {
@@ -10,5 +10,9 @@ public class User: BaseEntity
     public byte[] PasswordSalt { get; set; }
     
     public string AuthToken { get; set; } = string.Empty;
+
+    
+    public ICollection<AuthorCourses> AuthorCourses { get; set; }
+    public ICollection<UserTakesCourse> UserTakesCourse { get; set; }
 
 }

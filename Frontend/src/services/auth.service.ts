@@ -21,11 +21,11 @@ export class AuthService {
     return this._http.post(`${this.url}/login`, user, { responseType: 'text' });
   }
 
-  // public getUserWithToken(token: string): Observable<User> {
-  //   return this._http.post<User>(`${this.host}/${token}`, {});
-  // }
+  public getUserWithToken(token: string): Observable<User> {
+    return this._http.post<User>(`${this.url}/${token}`, {});
+  }
 
-  // public getUserWithId(id: string): Observable<User> {
-  //   return this._http.post<User>(`${this.host}/user/${id}`, {});
-  // }
+  public getUserWithId(id: string): Observable<User> {
+    return this._http.post<User>(`${this.url}/user/${id}`, {});
+  }
 }

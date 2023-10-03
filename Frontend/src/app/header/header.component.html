@@ -4,36 +4,35 @@
   </div>
   <span class="example-spacer"></span>
   <div class="d-flex align-items-center">
-    <button mat-stroked-button color="primary" class="bg-white" routerLink="/user">
-      {{ user?.username }}petar
+    <button *ngIf="user" mat-stroked-button color="primary" class="bg-white" routerLink="/user">
+      {{ user.username }}
     </button>
-    <a routerLink="/course/add" mat-icon-button>
+    <a routerLink="/course/create" mat-icon-button>
       <mat-icon>library_add</mat-icon>
     </a>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-
-      <button mat-menu-item routerLink="/user">Account Details</button>
       <button mat-menu-item routerLink="/user/learn">Enrolled Courses</button>
       <button mat-menu-item routerLink="/user/created">Created Courses</button>
     </mat-menu>
   </div>
-  <!-- <div *ngIf="!isAuthenticated"> -->
-  <div class="text-end">
-    <a routerLink="register">
-      <button mat-button color="accent" class="mx-3">Sign up</button>
-    </a>
-    <a routerLink="login">
-      <button mat-raised-button color="accent">Log In</button>
+  <div *ngIf="!user">
+    <div class="text-end">
+      <a routerLink="register">
+        <button mat-button color="accent" class="mx-3">Sign up</button>
+      </a>
+      <a routerLink="login">
+        <button mat-raised-button color="accent">Log In</button>
+      </a>
+    </div>
+  </div>
+  <div *ngIf="user">
+    <a>
+      <button mat-raised-button color="accent" (click)="logout()">
+        Logout
+      </button>
     </a>
   </div>
-  <!-- <div *ngIf="isAuthenticated">
-      <a>
-        <button mat-raised-button color="accent" (click)="logout()">
-          Logout
-        </button>
-      </a>
-    </div> -->
 </div>

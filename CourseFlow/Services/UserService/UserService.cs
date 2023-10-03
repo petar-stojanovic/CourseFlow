@@ -1,15 +1,18 @@
 ﻿using System.Security.Claims;
-using CourseFlow.Models.User;
+using CourseFlow.Models;
+using CourseFlow.Repository.UserRepository;
 
 namespace CourseFlow.Services.UserService;
 
 public class UserService : IUserService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IUserRepository _userRepository;
 
-    public UserService(IHttpContextAccessor httpContextAccessor)
+    public UserService(IHttpContextAccessor httpContextAccessor, IUserRepository userRepository)
     {
         _httpContextAccessor = httpContextAccessor;
+        this._userRepository = userRepository;
     }
 
     public string GetUsername()
@@ -25,6 +28,7 @@ public class UserService : IUserService
 
     public User AddUser(User user)
     {
-        throw new NotImplementedException();
+        _userRepository.AddUser(user);
+        return user;
     }
 }

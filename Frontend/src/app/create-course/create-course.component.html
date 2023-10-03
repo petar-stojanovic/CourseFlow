@@ -1,0 +1,60 @@
+<p>create-course works!</p>
+<div class="spinner" *ngIf="!isLoaded">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="wrapper" *ngIf="isLoaded && courseForm">
+  <div class="form-content">
+    <mat-toolbar class="login-toolbar" color="primary" class="d-flex justify-evenly">
+      <div class="m-auto">
+        <span>Create Course</span>
+      </div>
+    </mat-toolbar>
+    <mat-card>
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" id="addForm" class="d-flex flex-column mx-3 my-1">
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Title" formControlName="title" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="Description" formControlName="description" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Thumbnail URL</mat-label>
+          <input matInput placeholder="Thumbnail URL" formControlName="thumbnail">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input matInput type="number" placeholder="Price" formControlName="price">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Categories</mat-label>
+          <mat-select multiple name="countries" formControlName="categories">
+            <mat-option *ngFor="let category of categoryList" value="category">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!--       
+        <mat-form-field>
+          <mat-label>Lessons</mat-label>
+          <mat-chip-list formControlName="lessons">
+            <mat-chip *ngFor="let lesson of courseForm.get('lessons')!!.value" [removable]="true" (removed)="removeLesson(lesson)">
+              {{ lesson }}
+              <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+          <input matInput (matChipInputTokenEnd)="addLesson($event)" [matChipInputFor]="lessonChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" placeholder="Add lesson" />
+        </mat-form-field> -->
+
+        <button type="submit" mat-raised-button color="primary" class="mt-1" [disabled]="courseForm.invalid">
+          Create Course </button>
+
+      </form>
+    </mat-card>
+  </div>
+</div>

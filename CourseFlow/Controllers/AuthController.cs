@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using CourseFlow.DTO;
 using CourseFlow.Models;
-using CourseFlow.Models.User;
+using CourseFlow.Repository.UserRepository;
 using CourseFlow.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -14,17 +14,19 @@ namespace CourseFlow.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    public static User user = new User();
+    // public static User user = new User();
     private readonly IConfiguration _configuration;
     private readonly IUserService _userService;
+    private readonly IUserRepository _userRepository;
 
-    public AuthController(IConfiguration configuration, IUserService userService)
+    public AuthController(IConfiguration configuration, IUserService userService, IUserRepository userRepository)
     {
         _configuration = configuration;
         _userService = userService;
+        _userRepository = userRepository;
     }
-    
-    
+
+
     // [HttpPost("user/{id:guid}")]
     // public ActionResult<User> GetUserById(Guid id)
     // {
@@ -49,58 +51,53 @@ public class AuthController : ControllerBase
 
         CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-        user.Username = request.Username;
-        user.Email = request.Email;
-        user.PasswordHash = passwordHash;
-        user.PasswordSalt = passwordSalt;
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Username = request.Username,
+            Email = request.Email,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt,
+        };
 
+        _userService.AddUser(user);
         return Ok(user);
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login(UserLoginDto request)
     {
-        if (user.Username != request.Username)
+        if (!_userRepository.UserExists(request.Username))
         {
             return BadRequest("User Not Found");
         }
+
+        var user = _userRepository.getUserByUsername(request.Username);
 
         if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
         {
             return BadRequest("Wrong Password");
         }
-
+        
+        
         string token = CreateToken(user);
 
         var refreshToken = GenerateRefreshToken();
         SetRefreshToken(refreshToken, user);
         user.AuthToken = token;
-        //TODO() save to repo
+        _userRepository.UpdateUser(user);
 
         return Ok(token);
     }
+    
 
-    // [HttpPost("refresh-token")]
-    // public async Task<ActionResult<string>> RefreshToken()
-    // {
-    //     var refreshToken = Request.Cookies["refreshToken"];
-    //
-    //     if (!user.RefreshToken.Equals(refreshToken))
-    //     {
-    //         return Unauthorized("Invalid Refresh Token.");
-    //     }
-    //     else if(user.TokenExpires < DateTime.Now)
-    //     {
-    //         return Unauthorized("Token expired.");
-    //     }
-    //
-    //     string token = CreateToken(user);
-    //     var newRefreshToken = GenerateRefreshToken();
-    //     SetRefreshToken(newRefreshToken);
-    //
-    //     return Ok(token);
-    // }
-
+    [HttpPost("{token}")]
+    public ActionResult<User> GetUserByToken(string token)
+    {
+        var user = _userRepository.getUserByToken(token);
+        return Ok(user);
+    }
+    
     private RefreshToken GenerateRefreshToken()
     {
         var refreshToken = new RefreshToken
@@ -140,7 +137,7 @@ public class AuthController : ControllerBase
 
         var token = new JwtSecurityToken(
             claims: claims,
-            expires: DateTime.Now.AddDays(1),
+            expires: DateTime.Now.AddDays(3),
             signingCredentials: creds);
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);

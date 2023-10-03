@@ -6,10 +6,7 @@ public class Course : BaseEntity
 
     public string Description { get; set; } = string.Empty;
 
-    // TODO()
-    // public User Author { get; set; }
-
-    public string ImageUrl { get; set; } = string.Empty;
+    public string Thumbnail { get; set; } = string.Empty;
 
     public int Price { get; set; } = 0;
 
@@ -20,4 +17,9 @@ public class Course : BaseEntity
     public ICollection<Lesson> Lessons { get; set; }
 
     public ICollection<CourseCategory> CourseCategories { get; set; }
+    
+    public ICollection<AuthorCourses> AuthorCourses { get; set; }
+    
+    public ICollection<UserTakesCourse> UserTakesCourse { get; set; }
+    
 }

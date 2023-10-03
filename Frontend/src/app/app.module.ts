@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,7 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -27,7 +27,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from 'src/services/auth.interceptor';
 import { CategoriesComponent } from './categories/categories.component';
+import { AllCoursesComponent } from './all-courses/all-courses.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
+import { CourseComponent } from './course/course.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,9 @@ import { CategoriesComponent } from './categories/categories.component';
     HeaderComponent,
     FooterComponent,
     CategoriesComponent,
+    AllCoursesComponent,
+    CreateCourseComponent,
+    CourseComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,8 +67,15 @@ import { CategoriesComponent } from './categories/categories.component';
     MatSlideToggleModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

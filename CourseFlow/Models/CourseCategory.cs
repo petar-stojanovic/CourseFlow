@@ -2,9 +2,9 @@
 
 public class CourseCategory
 {
-    public int CourseId { get; set; }
+    public Guid CourseId { get; set; }
 
-    public int CategoryId { get; set; }
+    public Guid CategoryId { get; set; }
 
     public Course Course { get; set; }
 
