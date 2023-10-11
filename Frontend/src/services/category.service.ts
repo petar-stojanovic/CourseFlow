@@ -8,7 +8,7 @@ import { Category } from 'src/interfaces/Category';
 })
 export class CategoryService {
 
-  private url = 'api/Category';
+  private readonly url = 'api/Category';
 
   constructor(private _http: HttpClient) {}
 

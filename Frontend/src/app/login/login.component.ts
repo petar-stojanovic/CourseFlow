@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
     const password = formData.value.password;
     this.authService.login({ username, password } as UserLogin).subscribe({
       next: (token: string) => {
-        console.log(token);
         localStorage.setItem('authToken', token);
         this.errorMessage = '';
         location.href = '/';

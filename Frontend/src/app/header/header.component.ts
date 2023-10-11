@@ -11,7 +11,6 @@ export class HeaderComponent {
   user: User | undefined;
 
   constructor() {
-    console.log(this.user);
   }
 
   logout() {

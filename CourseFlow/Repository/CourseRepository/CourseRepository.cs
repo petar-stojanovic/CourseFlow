@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CourseFlow.Repository.CourseRepository;
 
-public class CourseRepository: ICourseRepository
+public class CourseRepository : ICourseRepository
 {
     private readonly DataContext _context;
 
@@ -30,6 +30,16 @@ public class CourseRepository: ICourseRepository
         return _context.Courses.ToList();
     }
 
+    public List<Course> GetAllPrivateCourses()
+    {
+        return _context.Courses.Where(c => c.IsPublic == false).ToList();
+    }
+
+    public List<Course> GetAllPublicCourses()
+    {
+        return _context.Courses.Where(c => c.IsPublic == true).ToList();
+    }
+
     public Course UpdateCourse(Course course)
     {
         _context.Courses.Update(course);
@@ -45,13 +55,12 @@ public class CourseRepository: ICourseRepository
             var courseCategoriesToDelete = _context.CourseCategories
                 .Where(cc => cc.CourseId == courseId)
                 .ToList();
-            
+
             _context.CourseCategories.RemoveRange(courseCategoriesToDelete);
 
-            
+
             _context.Courses.Remove(courseToDelete);
             _context.SaveChanges();
         }
     }
-    
 }

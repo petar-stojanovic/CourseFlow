@@ -1,1 +1,81 @@
-<p>course works!</p>
+<div class="spinner" *ngIf="!isLoaded">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container pb-5" *ngIf="isLoaded">
+  <div class="mt-4 d-flex flex-column">
+    <div *ngIf="course?.id" class="col-lg-8 col-md-12 text-center mb-3 mx-auto">
+      <!-- <app-thumbnail
+        [courseId]="course!!.id"
+        thumbnail_class="thumbnail_lesson"
+      ></app-thumbnail> -->
+      <img [src]="course?.thumbnail" width="512" />
+
+      <!-- *ngIf="course?.author?.id != user?.id && !takesCourse && user" -->
+      <!-- (click)="enrollStudent(course!!.id)" -->
+      <button mat-raised-button *ngIf="!userTakesCourse" color="primary" class="my-3 w-50"
+        (click)="enrollCourse(courseId!!)">
+        Enroll now
+      </button>
+
+    </div>
+    <div class="col-md-12 col-lg-8 col-md-6 mx-auto" *ngIf="course?.author?.id == user?.id || userTakesCourse">
+      <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
+
+      <p class="fs-5 word">{{ course?.description }}</p>
+      <h3>
+        <span class="fw-medium"> Author:</span> {{ course?.author?.username }}
+      </h3>
+      <h3 *ngIf="course?.author?.id != user?.id">
+        <span class="fw-medium"> Your Progress:</span>
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      </h3>
+      <h2>Course Content</h2>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle *ngFor="let lesson of lessons; let i = index" class="d-flex flex-column">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Lesson {{ i + 1 }}:<span class="text-secondary ms-2">{{
+                lesson.title
+                }}</span></mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="word">{{ lesson.description }}</p>
+          <youtube-player videoId="dQw4w9WgXcQ" (stateChange)="onStateChange($event)"></youtube-player>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+
+
+  </div>
+  <!-- <div *ngIf="progress === 100">
+    <button mat-raised-button color="primary" (click)="downloadCertificate()">
+      Download Certificate
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+  </div> -->
+</div>
+
+
+
+<div class="col-md-12 col-lg-6 col-md-6 order-2 order-lg-1 order-xl-1 order-xxl-1 mx-auto"
+  *ngIf="course?.author?.id != user?.id && !userTakesCourse">
+  <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
+
+  <p class="fs-5 word">{{ course?.description }}</p>
+  <h3>
+    <span class="fw-medium"> Author:</span> {{ course?.author?.username }}
+  </h3>
+  <h2>Course Content</h2>
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start"
+      *ngFor="let lesson of lessons; let i = index">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{ lesson.title }}</div>
+        <p class="word">{{ lesson.description }}</p>
+      </div>
+    </li>
+  </ol>
+</div>

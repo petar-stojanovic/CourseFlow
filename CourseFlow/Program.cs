@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using CourseFlow.Data;
 using CourseFlow.Repository.CategoryRepository;
 using CourseFlow.Repository.CourseRepository;
@@ -26,6 +27,12 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 builder.Services.AddHttpContextAccessor();
 
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 builder.Services.AddSwaggerGen(options =>
 {

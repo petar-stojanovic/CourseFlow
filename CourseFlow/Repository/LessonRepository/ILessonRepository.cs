@@ -11,4 +11,6 @@ public interface ILessonRepository
     Lesson UpdateLesson(Lesson lesson);
 
     void DeleteLesson(Guid lessonId);
+
+    List<Lesson> GetLessonsByCourse(Guid lessonId);
 }

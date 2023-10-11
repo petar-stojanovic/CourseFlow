@@ -9,4 +9,6 @@ public class UserTakesCourse
     public User User { get; set; }
 
     public Course Course { get; set; }
+
+    public int Progress { get; set; } = 0;
 }

@@ -9,6 +9,10 @@ public interface ICourseRepository
     Course GetCourse(Guid courseId);
 
     List<Course> GetAllCourses();
+    
+    List<Course> GetAllPrivateCourses();
+    
+    List<Course> GetAllPublicCourses();
 
     Course UpdateCourse(Course course);
 

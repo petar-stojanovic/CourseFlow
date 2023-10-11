@@ -48,6 +48,11 @@ public class AuthController : ControllerBase
         {
             return BadRequest("Passwords do not match");
         }
+        
+        if (_userRepository.UserExists(request.Username))
+        {
+            return BadRequest("User already exists");
+        }
 
         CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 

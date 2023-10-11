@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'course/:id/lessons', component: CourseComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

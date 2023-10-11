@@ -32,6 +32,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { AllCoursesComponent } from './all-courses/all-courses.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseComponent } from './course/course.component';
+import { VideoComponent } from './video/video.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { CourseComponent } from './course/course.component';
     AllCoursesComponent,
     CreateCourseComponent,
     CourseComponent,
+    VideoComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import { CourseComponent } from './course/course.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     ReactiveFormsModule,
+    YouTubePlayerModule
   ],
   providers: [
     {

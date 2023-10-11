@@ -47,4 +47,8 @@ public class LessonRepository: ILessonRepository
         }
     }
 
+    public List<Lesson> GetLessonsByCourse(Guid lessonId)
+    {
+        return _context.Lessons.Where(l => l.Course.Id == lessonId).ToList();
+    }
 }

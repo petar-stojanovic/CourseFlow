@@ -1,4 +1,3 @@
-<p>create-course works!</p>
 <div class="spinner" *ngIf="!isLoaded">
   <div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
@@ -34,22 +33,37 @@
         <mat-form-field>
           <mat-label>Categories</mat-label>
           <mat-select multiple name="countries" formControlName="categories">
-            <mat-option *ngFor="let category of categoryList" value="category">
+            <mat-option *ngFor="let category of categoryList" [value]="category.id">
               {{ category.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <!--       
-        <mat-form-field>
-          <mat-label>Lessons</mat-label>
-          <mat-chip-list formControlName="lessons">
-            <mat-chip *ngFor="let lesson of courseForm.get('lessons')!!.value" [removable]="true" (removed)="removeLesson(lesson)">
-              {{ lesson }}
-              <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-          <input matInput (matChipInputTokenEnd)="addLesson($event)" [matChipInputFor]="lessonChipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" placeholder="Add lesson" />
-        </mat-form-field> -->
+
+
+        <div formArrayName="lessons">
+          <div *ngFor="let lesson of lessons.controls; let i = index" class="lesson-group">
+            <ng-container [formGroupName]="i">
+
+              <h4 class="m-0 d-flex align-items-center justify-content-between"><span>Lesson {{ i + 1 }}</span> <button
+                  mat-icon-button size="30" color="warn"
+                  (click)="removeLesson(i)"><mat-icon>remove_circle</mat-icon></button>
+              </h4>
+              <mat-form-field>
+                <mat-label>Lesson Description</mat-label>
+                <input matInput placeholder="Lesson Description" formControlName="description">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Lesson URL</mat-label>
+                <input matInput placeholder="Lesson URL" formControlName="url" required>
+                <mat-hint style="color: #f44336">Example URL: https://www.youtube.com/watch?v=dQw4w9WgXcQ</mat-hint>
+              </mat-form-field>
+
+            </ng-container>
+
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="button" (click)="addLesson()">Add Lesson</button>
 
         <button type="submit" mat-raised-button color="primary" class="mt-1" [disabled]="courseForm.invalid">
           Create Course </button>

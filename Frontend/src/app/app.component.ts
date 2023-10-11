@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from 'src/interfaces/User';
 import { AuthService } from 'src/services/auth.service';
 
@@ -10,6 +10,8 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class AppComponent implements OnInit {
   isUserLoggedIn = false;
+  @Output()
+  loggedInUser = new EventEmitter<User>();
   user: User | undefined;
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
@@ -30,7 +32,6 @@ export class AppComponent implements OnInit {
       this.isUserLoggedIn = true;
       this._authService.getUserWithToken(token).subscribe((result) => {
         this.user = result;
-        console.log('OMG', this.user);
       });
     }
   }
