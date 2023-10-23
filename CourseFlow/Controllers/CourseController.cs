@@ -1,7 +1,9 @@
-﻿using CourseFlow.Data;
+﻿using System.Diagnostics;
+using CourseFlow.Data;
 using CourseFlow.DTO;
 using CourseFlow.Models;
 using CourseFlow.Repository.CourseRepository;
+using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseFlow.Controllers;
@@ -84,6 +86,59 @@ public class CourseController : ControllerBase
         }
     }
 
+    [HttpPost("createLessonsForCourse")]
+    public async Task<IActionResult> CreateCourseLessonsFromFile(IFormFile file)
+    {
+        string pathToFile = $"{Directory.GetCurrentDirectory()}\\files\\{file.FileName}";
+
+
+        await using (FileStream fileStream = System.IO.File.Create(pathToFile))
+        {
+            file.CopyTo(fileStream);
+            fileStream.Flush();
+        }
+
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+
+        List<Lesson> lessonList = new List<Lesson>();
+
+        using (var stream = System.IO.File.Open(pathToFile, FileMode.Open, FileAccess.Read))
+        {
+            using (var reader = new StreamReader(stream))
+            {
+                string readerLine;
+                while ((readerLine = reader.ReadLine()) != null)
+                {
+                    Debug.WriteLine(readerLine);
+                    var line = readerLine.Split(",");
+                    string videoUrl = line[1];
+                    YouTubeVideoData videoData = await GetYoutubeLinkDetails(videoUrl);
+
+                    var lesson = new Lesson
+                    {
+                        Description = line[0],
+                        Url = videoUrl,
+                        Title = videoData.title,
+                        Thumbnail = videoData.thumbnail_url,
+                        Course = _context.Courses.FirstOrDefault(c =>
+                            c.Title == "Admin" && c.Description == "This is a course for unassigned lessons")!
+                    };
+                    lessonList.Add(lesson);
+                }
+            }
+        }
+
+        foreach (var lesson in lessonList)
+        {
+            _context.Lessons.Add(lesson);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return StatusCode(200, $"OK YEY {pathToFile}");
+    }
+
     [HttpPost("enroll")]
     public async Task<IActionResult> EnrollUsertoCourse([FromBody] UserTakesCourseDTO userTakesCourseDto)
     {
@@ -113,8 +168,42 @@ public class CourseController : ControllerBase
     [HttpPost("checkUserTakesCourse")]
     public async Task<bool> CheckUserTakesCourse([FromBody] UserTakesCourseDTO userTakesCourseDto)
     {
-        var userTakesCourse =  _context.UserTakesCourses.FirstOrDefault(utc =>
+        var userTakesCourse = _context.UserTakesCourses.FirstOrDefault(utc =>
             utc.CourseId == userTakesCourseDto.CourseId && utc.UserId == userTakesCourseDto.UserId);
         return userTakesCourse != null;
+    }
+
+    private async Task<YouTubeVideoData> GetYoutubeLinkDetails(string videoUrl)
+    {
+        // Construct the URL for the YouTube oEmbed API
+        string oEmbedUrl = $"https://www.youtube.com/oembed?url={videoUrl}";
+
+        using (HttpClient httpClient = new HttpClient())
+        {
+            try
+            {
+                // Send a GET request to the YouTube oEmbed API
+                HttpResponseMessage response = await httpClient.GetAsync(oEmbedUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the JSON response
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    YouTubeVideoData videoData =
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<YouTubeVideoData>(responseBody);
+                    return videoData;
+                }
+                else
+                {
+                    // Handle the response error
+                    throw new HttpRequestException($"Error: {response.StatusCode}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle the exception (e.g., log or return an error response)
+                throw ex;
+            }
+        }
     }
 }

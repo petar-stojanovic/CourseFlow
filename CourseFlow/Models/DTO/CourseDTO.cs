@@ -10,8 +10,8 @@ public class CourseDTO
     public UserDTO Author { get; set; }
     public int Price { get; set; }
     public List<string> Categories { get; set; }
-    public List<LessonDTO> Lessons { get; set; }
-
+    public List<LessonDTO>? Lessons { get; set; }
+    public bool LessonsCreatedWithFile { get; set; } = false;
 }
 
 public class LessonDTO

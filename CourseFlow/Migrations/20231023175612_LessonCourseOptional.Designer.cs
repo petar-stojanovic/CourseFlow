@@ -4,6 +4,7 @@ using CourseFlow.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseFlow.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231023175612_LessonCourseOptional")]
+    partial class LessonCourseOptional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,512 +56,512 @@ namespace CourseFlow.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e1a703d6-3738-4d5a-b01d-e060c098d71f"),
+                            Id = new Guid("2a389707-c37f-4b1f-9051-db344baf4a2f"),
                             Name = "Web Development"
                         },
                         new
                         {
-                            Id = new Guid("31c92fe5-b186-4634-a8b3-3881e35b2777"),
+                            Id = new Guid("a67d5e83-1849-47c6-a38d-c797762ed76d"),
                             Name = "Mobile App Development"
                         },
                         new
                         {
-                            Id = new Guid("8b7d1f67-fc9f-414f-8315-97f0d9fa4801"),
+                            Id = new Guid("862cd591-e705-49d5-be6b-47dcc9be8cae"),
                             Name = "Game Development"
                         },
                         new
                         {
-                            Id = new Guid("c5ca0fa2-c4b5-417b-8072-d7c96cec68b8"),
+                            Id = new Guid("b5e72736-1168-4a73-8ffa-3e5614eadd31"),
                             Name = "Database Management"
                         },
                         new
                         {
-                            Id = new Guid("d74c56c8-1c63-4a79-9bb1-1c48e2698227"),
+                            Id = new Guid("dad86b90-20df-41dc-aa3f-61326847447a"),
                             Name = "DevOps"
                         },
                         new
                         {
-                            Id = new Guid("03eb78fb-4b59-48f9-9e95-287a94bc221c"),
+                            Id = new Guid("e5e5c263-76c2-474c-b25b-9ba09750e976"),
                             Name = "Machine Learning"
                         },
                         new
                         {
-                            Id = new Guid("0d3ce0b2-4dc5-476e-8854-613bedc66388"),
+                            Id = new Guid("48cbad00-371b-4ee3-b3fd-1ea72518be7d"),
                             Name = "Artificial Intelligence"
                         },
                         new
                         {
-                            Id = new Guid("e72757d2-b0d2-4d8f-acc5-e66a2f53256e"),
+                            Id = new Guid("ef5a1215-511f-4876-a051-70f9c6dddfaf"),
                             Name = "Data Science"
                         },
                         new
                         {
-                            Id = new Guid("7ebaa0a1-b21e-4caa-9970-50d75b2072bf"),
+                            Id = new Guid("8d73ca83-bddb-4ae8-ab80-5a28fd6b42ff"),
                             Name = "Cloud Computing"
                         },
                         new
                         {
-                            Id = new Guid("19ce4fc4-c8f7-4bf4-afac-7f6daa4015de"),
+                            Id = new Guid("09f195f3-c48c-4695-8f2b-01ae7efd3dc2"),
                             Name = "Cybersecurity"
                         },
                         new
                         {
-                            Id = new Guid("9d14939c-4484-4486-835d-cf3d85f6db53"),
+                            Id = new Guid("2503bd41-39fe-459c-b91e-af232cccece8"),
                             Name = "Frontend Development"
                         },
                         new
                         {
-                            Id = new Guid("61f9bfd6-1edd-4421-8ba6-cb3eb6eb924d"),
+                            Id = new Guid("82a8ecc4-a932-4096-9d72-62e8f8d16a86"),
                             Name = "Backend Development"
                         },
                         new
                         {
-                            Id = new Guid("1b12ee4c-00df-4460-b76d-014e9a46acad"),
+                            Id = new Guid("7b094e0b-5341-4db6-8fa3-84e2b6fa9627"),
                             Name = "Full Stack Development"
                         },
                         new
                         {
-                            Id = new Guid("0f399b4f-53fc-455c-92eb-8e6dbcd5cf64"),
+                            Id = new Guid("618967f5-7257-4459-bb8e-8ce6b9e6a9e9"),
                             Name = "UI/UX Design"
                         },
                         new
                         {
-                            Id = new Guid("c516aba7-16ba-4278-ad25-70847a92b7f2"),
+                            Id = new Guid("ca63963e-b7d4-437d-9c69-d06a17271bcf"),
                             Name = "Version Control"
                         },
                         new
                         {
-                            Id = new Guid("696b7044-f7a6-4913-a6c7-93982a105deb"),
+                            Id = new Guid("aabdded7-be49-43d1-abeb-2f8d92f8782a"),
                             Name = "Agile Methodology"
                         },
                         new
                         {
-                            Id = new Guid("9aab0d4b-27ab-4d06-aab5-2c91d3d16707"),
+                            Id = new Guid("48fa7392-8e4a-4ce0-95a9-df1a9a2b5486"),
                             Name = "Software Testing"
                         },
                         new
                         {
-                            Id = new Guid("eaf26b32-6238-44c8-bb98-fab6f950a9e4"),
+                            Id = new Guid("835adc47-f805-49bb-9fea-b19decffa4ee"),
                             Name = "Continuous Integration"
                         },
                         new
                         {
-                            Id = new Guid("e067a6d2-0921-4765-9cc3-65c27674e10b"),
+                            Id = new Guid("f802308d-3548-41c7-a365-4acc30e31865"),
                             Name = "API Development"
                         },
                         new
                         {
-                            Id = new Guid("574b2156-3448-4d0e-9668-95146d0b5982"),
+                            Id = new Guid("68db5608-2c80-4235-a2ce-7f53965ddcc8"),
                             Name = "Microservices"
                         },
                         new
                         {
-                            Id = new Guid("f4a3d8c7-1429-4329-a788-c948af3312aa"),
+                            Id = new Guid("41173d9f-8f50-4c98-8756-d105d76aafac"),
                             Name = "Blockchain"
                         },
                         new
                         {
-                            Id = new Guid("3c318963-0ee6-45a9-81d1-5ddc42071b53"),
+                            Id = new Guid("cb810114-eb9e-46c2-a23d-69108c22dbf6"),
                             Name = "IoT Development"
                         },
                         new
                         {
-                            Id = new Guid("94031416-241f-45c7-9034-abeccc716b50"),
+                            Id = new Guid("8da10f74-a634-46e6-b18e-82ba8c0a36cf"),
                             Name = "Embedded Systems"
                         },
                         new
                         {
-                            Id = new Guid("b5446131-7d71-4914-bfa5-3e3b198a8f4f"),
+                            Id = new Guid("718b4793-a1d1-45b6-8ae7-5e0089471fbb"),
                             Name = "Natural Language Processing"
                         },
                         new
                         {
-                            Id = new Guid("3df1af79-3432-419a-af0b-654e442184be"),
+                            Id = new Guid("6558b674-3e16-4058-bb37-26f78acc9dda"),
                             Name = "Big Data"
                         },
                         new
                         {
-                            Id = new Guid("56495b97-5a96-4236-9432-c2ef95d02999"),
+                            Id = new Guid("7d71b0b0-015e-44ec-a65e-f8a868fbf1b0"),
                             Name = "Virtual Reality"
                         },
                         new
                         {
-                            Id = new Guid("b35516fe-303b-456b-9279-d3758c6f0498"),
+                            Id = new Guid("e6bd1862-192f-47b5-b593-7a67027de998"),
                             Name = "Augmented Reality"
                         },
                         new
                         {
-                            Id = new Guid("74fb13f1-12c3-4ab8-b5d9-b18f7058a220"),
+                            Id = new Guid("9acf9694-b1c5-46a1-b39f-84078c1fce8a"),
                             Name = "Quantum Computing"
                         },
                         new
                         {
-                            Id = new Guid("069ce44d-0473-4329-a791-5d01ee8bb48e"),
+                            Id = new Guid("31b22eca-387d-4c35-87dc-787abafd821b"),
                             Name = "Functional Programming"
                         },
                         new
                         {
-                            Id = new Guid("28b37964-e583-4b6d-8e0b-f07e937e6398"),
+                            Id = new Guid("e316d88c-4ac9-42d2-b9c3-46bb36b84e84"),
                             Name = "Object-Oriented Programming"
                         },
                         new
                         {
-                            Id = new Guid("122a25b4-77aa-4838-8d27-d6b9719deee3"),
+                            Id = new Guid("42e81703-57ca-4292-8ec5-90b4d63dde75"),
                             Name = "Low-Level Programming"
                         },
                         new
                         {
-                            Id = new Guid("28eee9d7-4031-48da-948b-32c3af2ae23a"),
+                            Id = new Guid("51316019-f700-449a-912d-26e67de93963"),
                             Name = "High-Level Programming"
                         },
                         new
                         {
-                            Id = new Guid("ca3b7495-2352-4f06-881b-72bd7dd1b8c3"),
+                            Id = new Guid("ce099427-d7eb-45b5-b87e-43cfe20cce74"),
                             Name = "Concurrency"
                         },
                         new
                         {
-                            Id = new Guid("27cfbacf-ebe2-430c-8d4a-cbdf821c59de"),
+                            Id = new Guid("4c54fc57-13e7-40d4-9748-0f85903ad503"),
                             Name = "Parallel Programming"
                         },
                         new
                         {
-                            Id = new Guid("7e5486ac-1312-4e6e-a208-53468c8f1ec1"),
+                            Id = new Guid("7a44fe3a-4ae2-47cc-8bac-e1eb8229088f"),
                             Name = "Responsive Design"
                         },
                         new
                         {
-                            Id = new Guid("9b1e0268-5081-4026-af66-c9e6d399ba5b"),
+                            Id = new Guid("81fb2919-7b05-40f3-a18b-ffa55949d3c2"),
                             Name = "RESTful APIs"
                         },
                         new
                         {
-                            Id = new Guid("037b0cf2-456d-4d0c-84c1-73811a8bbb39"),
+                            Id = new Guid("a9a54e85-7b38-4c4d-b0e6-92c8787bb516"),
                             Name = "GraphQL"
                         },
                         new
                         {
-                            Id = new Guid("809d1d46-6064-4e6c-bcd8-653d040d0d07"),
+                            Id = new Guid("9cabe68f-509c-4fbd-95b5-600a11f50ea3"),
                             Name = "Secure Coding Practices"
                         },
                         new
                         {
-                            Id = new Guid("43743584-2974-43f0-ba75-eca47d2575a0"),
+                            Id = new Guid("827af0f1-e5ca-4b5b-b208-3bb2935bd19e"),
                             Name = "Code Optimization"
                         },
                         new
                         {
-                            Id = new Guid("81247d2b-519b-4f8b-a403-f3f15af572cb"),
+                            Id = new Guid("39f59d71-23e4-49bb-b167-04f0c9b434dd"),
                             Name = "Code Review"
                         },
                         new
                         {
-                            Id = new Guid("e3d7c4d9-28fb-4074-be4c-61604d64b7dd"),
+                            Id = new Guid("6b375bb2-1602-49cc-a79a-bc9d14a46e84"),
                             Name = "Pair Programming"
                         },
                         new
                         {
-                            Id = new Guid("52e3e63e-d375-4f72-87c2-530d3b18696c"),
+                            Id = new Guid("bf984ba0-cf88-482d-a7c1-c62d6163d5ca"),
                             Name = "Scrum"
                         },
                         new
                         {
-                            Id = new Guid("9b650593-8188-441f-ae0e-c7beee5e9cb1"),
+                            Id = new Guid("d47fdec6-da0c-49d8-8ca1-990875f4c357"),
                             Name = "Kanban"
                         },
                         new
                         {
-                            Id = new Guid("e4a4d24f-6870-4b04-ad9b-8303feb1286d"),
+                            Id = new Guid("e1971a30-8c34-453e-a9bb-55fbcdf961b7"),
                             Name = "Software Architecture"
                         },
                         new
                         {
-                            Id = new Guid("62085cb6-2ea4-4c9b-97ed-1fa42b330e96"),
+                            Id = new Guid("2744d859-3eaf-485e-81e3-8f00d02dbaa5"),
                             Name = "Design Patterns"
                         },
                         new
                         {
-                            Id = new Guid("42bc4554-af33-44f3-acef-ebf50e93e362"),
+                            Id = new Guid("1e35c324-28b9-482b-9a64-914b180704d3"),
                             Name = "Refactoring"
                         },
                         new
                         {
-                            Id = new Guid("121588b2-2ca2-49e9-ae81-29d703365cfd"),
+                            Id = new Guid("c7368f45-48e7-45dd-99d4-9d6634c58441"),
                             Name = "Code Documentation"
                         },
                         new
                         {
-                            Id = new Guid("d952363d-f3ff-4339-8cc5-190909d5e863"),
+                            Id = new Guid("73558f68-d354-43cd-b2bf-b4e96c547f5e"),
                             Name = "Legacy Code Maintenance"
                         },
                         new
                         {
-                            Id = new Guid("a36b2d1d-b619-40f6-ac2f-f2263d9cdca1"),
+                            Id = new Guid("e8277d31-fb27-4ff5-94b8-c018bc9e3938"),
                             Name = "Code Quality"
                         },
                         new
                         {
-                            Id = new Guid("efc4a3d3-0a96-41b0-ab77-fbc7fc19f572"),
+                            Id = new Guid("dd295385-4bd9-4e51-bd58-b9da026be491"),
                             Name = "Technical Debt"
                         },
                         new
                         {
-                            Id = new Guid("a89f0662-2bcf-446f-9038-c739c923b39f"),
+                            Id = new Guid("67250fb8-f4b8-427b-8eb8-5b05799cf3dd"),
                             Name = "Software Development Lifecycle"
                         },
                         new
                         {
-                            Id = new Guid("4ea34c24-cf26-4fd3-b174-a544ac71b085"),
+                            Id = new Guid("d4251572-c6bf-4af6-b5d4-4998af43bd44"),
                             Name = "Project Management"
                         },
                         new
                         {
-                            Id = new Guid("06d75bfe-ee42-41ae-ba66-9dac36603ef7"),
+                            Id = new Guid("3b30ae5b-4341-40e8-a3b6-9d890155057b"),
                             Name = "C#"
                         },
                         new
                         {
-                            Id = new Guid("eca923e3-30cd-4241-b6f3-b683b83e2c7a"),
+                            Id = new Guid("d706fec6-eb7a-4a12-bb68-b2867e40a9ba"),
                             Name = "C++"
                         },
                         new
                         {
-                            Id = new Guid("bf8831b1-443f-46af-a104-480a2e175960"),
+                            Id = new Guid("02209f4a-52f5-4a8a-b69f-252fe7d0afc2"),
                             Name = "Java"
                         },
                         new
                         {
-                            Id = new Guid("0da7a44f-8259-411f-8f07-60904d213baa"),
+                            Id = new Guid("4854dd78-47be-414c-90f3-e1b55adc1a3f"),
                             Name = "Python"
                         },
                         new
                         {
-                            Id = new Guid("071fd6d6-43ed-46ba-a42f-a45630cb01a1"),
+                            Id = new Guid("19ab9711-69e2-4e13-9acf-ad87a28627ff"),
                             Name = "JavaScript"
                         },
                         new
                         {
-                            Id = new Guid("326278fc-aa66-4013-8012-1c58f1ea4d15"),
+                            Id = new Guid("ffb54d7f-ae0c-4b3b-aabd-7505f1f5681d"),
                             Name = "Ruby"
                         },
                         new
                         {
-                            Id = new Guid("ec46a2b0-02b7-4897-a90f-bad6462d7e6d"),
+                            Id = new Guid("4b326a2a-d6d0-4169-97b9-c6c646883e56"),
                             Name = "Swift"
                         },
                         new
                         {
-                            Id = new Guid("18f5e483-feea-4f88-91f7-dc3c21d6a74a"),
+                            Id = new Guid("2f571a38-1509-4bb1-aa95-91de65dbec35"),
                             Name = "Kotlin"
                         },
                         new
                         {
-                            Id = new Guid("b202b35a-52da-4479-af48-76e4da2381ef"),
+                            Id = new Guid("7e3a75b2-6887-4278-bacd-82d921b44c80"),
                             Name = "Go"
                         },
                         new
                         {
-                            Id = new Guid("5edff946-de93-46cd-813f-7a465ccf3205"),
+                            Id = new Guid("dd8dd621-5cd9-4e77-bd4b-0f21ad247085"),
                             Name = "Rust"
                         },
                         new
                         {
-                            Id = new Guid("078e20e3-e7d2-4aed-9bb2-baa6bced1437"),
+                            Id = new Guid("1bc5d269-fc0e-4069-82ca-a4f7053de818"),
                             Name = "PHP"
                         },
                         new
                         {
-                            Id = new Guid("250d7ee7-1f9a-411e-a9b5-72b317f95ed5"),
+                            Id = new Guid("05be7165-ccf1-4bb2-b99d-0f139f1fdcaf"),
                             Name = "Perl"
                         },
                         new
                         {
-                            Id = new Guid("f6bb60ec-9deb-46a0-a299-4fc6ca1998ca"),
+                            Id = new Guid("e5bc8f66-b9d9-4855-804a-3ea6bcb305b6"),
                             Name = "Scala"
                         },
                         new
                         {
-                            Id = new Guid("0e560969-2c8f-4493-b9f9-35b192bd6db5"),
+                            Id = new Guid("9a654440-ba92-4e98-8c08-fb5a23a5984b"),
                             Name = "Haskell"
                         },
                         new
                         {
-                            Id = new Guid("5e8859d7-329a-43b9-b5b5-8d5d74623fd4"),
+                            Id = new Guid("da7ee0f8-483c-4cc3-b2ad-140ecf30c84d"),
                             Name = "Lua"
                         },
                         new
                         {
-                            Id = new Guid("0ab7d7a0-e46a-4d33-b3ed-c38be05a14af"),
+                            Id = new Guid("d7b28ca4-86d7-42b0-879d-3250c10b3f81"),
                             Name = "TypeScript"
                         },
                         new
                         {
-                            Id = new Guid("5dfbb4e6-516c-4367-8348-b45620689612"),
+                            Id = new Guid("a91a59a6-7026-4f48-8b6f-5b70029d10df"),
                             Name = "Dart"
                         },
                         new
                         {
-                            Id = new Guid("5690bc10-d005-4c72-b1e6-72a46b9f6683"),
+                            Id = new Guid("83f29ea4-0b36-4d5c-a492-651a9c608bc0"),
                             Name = "F#"
                         },
                         new
                         {
-                            Id = new Guid("c71cf294-605a-49ac-8c68-d9314d3f92fe"),
+                            Id = new Guid("39ca98d2-3737-40b4-9e40-322a349d046b"),
                             Name = "Groovy"
                         },
                         new
                         {
-                            Id = new Guid("88552d9b-b7b6-4268-949c-b92913f1a893"),
+                            Id = new Guid("d40c2c2c-188d-4a67-881d-27e6fe3ac734"),
                             Name = "Objective-C"
                         },
                         new
                         {
-                            Id = new Guid("d8afa6c1-ae05-49c9-b35c-0720ac2f57bf"),
+                            Id = new Guid("397a0909-98d8-4564-89c6-1e6ed14e0c32"),
                             Name = "R"
                         },
                         new
                         {
-                            Id = new Guid("47c0997f-1662-43a1-aa92-b993317317f2"),
+                            Id = new Guid("6bd97c71-5faa-49a5-9608-c45d1d212c2e"),
                             Name = "Matlab"
                         },
                         new
                         {
-                            Id = new Guid("6b8c044c-c4a5-472a-bf86-724792482221"),
+                            Id = new Guid("540bb408-b100-41dc-9d01-3105b5404568"),
                             Name = "Julia"
                         },
                         new
                         {
-                            Id = new Guid("b2eb229e-19d3-4c34-ac6d-dba9ed61b214"),
+                            Id = new Guid("a2340903-7134-40d9-a1c3-b1b41b64d0b4"),
                             Name = "COBOL"
                         },
                         new
                         {
-                            Id = new Guid("f470b13a-8e10-47a2-930b-9110b85474c5"),
+                            Id = new Guid("73cbff9f-1352-41a8-ae19-b1ea12aca68d"),
                             Name = "Fortran"
                         },
                         new
                         {
-                            Id = new Guid("806e8f18-6b2a-4a9e-be77-639a17b6a982"),
+                            Id = new Guid("3e066e4b-c07b-4f21-b3a2-75a3bb321feb"),
                             Name = "Assembly"
                         },
                         new
                         {
-                            Id = new Guid("95f83465-777c-4188-91ac-9964b68ca775"),
+                            Id = new Guid("254e20d6-30ce-4b93-b852-926e0edfae24"),
                             Name = "PL/SQL"
                         },
                         new
                         {
-                            Id = new Guid("46f0669d-327f-49a8-84be-2096f8231dcd"),
+                            Id = new Guid("4c9acd88-a41c-400f-82f4-caf32e1553e7"),
                             Name = "T-SQL"
                         },
                         new
                         {
-                            Id = new Guid("1841bed9-560a-46e9-a24f-7df9d8efb242"),
+                            Id = new Guid("7b4fa6c5-8605-4462-93b5-4cbc35b5662e"),
                             Name = "VBScript"
                         },
                         new
                         {
-                            Id = new Guid("b445ba0f-70a3-4a43-9366-7e24ccdcf1d1"),
+                            Id = new Guid("f37145d5-ff07-43cf-bfe0-569ab6f92847"),
                             Name = "Ada"
                         },
                         new
                         {
-                            Id = new Guid("5326d449-f55e-4041-8a54-c4879a473a7f"),
+                            Id = new Guid("ec4fd0bf-9bcc-4a41-b556-2d639080fe75"),
                             Name = "Lisp"
                         },
                         new
                         {
-                            Id = new Guid("4391b3d8-3a76-4654-af0b-84b20b700f38"),
+                            Id = new Guid("5a8b4254-f3db-4d0a-a7fa-f56a460bd6da"),
                             Name = "Prolog"
                         },
                         new
                         {
-                            Id = new Guid("31654f00-ce64-4975-b357-5c9e072c2f22"),
+                            Id = new Guid("6acd56e6-e543-4e9c-9f51-c73d521d568e"),
                             Name = "Scheme"
                         },
                         new
                         {
-                            Id = new Guid("0f337af9-fc2e-49ad-8a74-250ea0b27d30"),
+                            Id = new Guid("d5cc2f8c-91fd-48f0-bd1e-d8dc2be0d6cc"),
                             Name = "Smalltalk"
                         },
                         new
                         {
-                            Id = new Guid("8e900388-9b2f-4e23-84cd-3808296c52c3"),
+                            Id = new Guid("d6ff7a13-df7a-4cf2-b130-8d10de0116ba"),
                             Name = "Logo"
                         },
                         new
                         {
-                            Id = new Guid("dcc759a1-48b6-4767-9d2c-867e259d908c"),
+                            Id = new Guid("8bfa8296-9c4e-40b0-ba13-fad650038110"),
                             Name = "Clojure"
                         },
                         new
                         {
-                            Id = new Guid("20e4b2e9-c2a0-462e-a1d5-0d5b47f1f823"),
+                            Id = new Guid("515c2ff7-8864-4eff-8a47-93f713185066"),
                             Name = "Elixir"
                         },
                         new
                         {
-                            Id = new Guid("4e0c2562-4a15-41de-af8c-8307507b9734"),
+                            Id = new Guid("5dd40923-fcb0-4ff3-a4fc-cdbe9b487969"),
                             Name = "Erlang"
                         },
                         new
                         {
-                            Id = new Guid("f63b6069-a937-4a8d-b08c-2e78dc4b1374"),
+                            Id = new Guid("cf61de3d-aba5-4f34-a8f1-0f7849fd6263"),
                             Name = "VHDL"
                         },
                         new
                         {
-                            Id = new Guid("f42c6712-1fb1-4fe5-8cbb-d35c54a66cdd"),
+                            Id = new Guid("93ccabca-3d78-4c27-bcac-f00f9da5454a"),
                             Name = "Verilog"
                         },
                         new
                         {
-                            Id = new Guid("c7a0c354-0e62-47dc-96ac-f06f81936cc6"),
+                            Id = new Guid("1007354e-d1f4-4c15-9e92-85a1f2f4b548"),
                             Name = "SQL"
                         },
                         new
                         {
-                            Id = new Guid("3bba157f-f8da-4e22-9daa-7c31f7a6c0a4"),
+                            Id = new Guid("6c2e727a-94a0-4586-b815-ae64e440490e"),
                             Name = "HTML"
                         },
                         new
                         {
-                            Id = new Guid("f749f18c-5c8d-4844-9dd8-2c2efc0daa23"),
+                            Id = new Guid("82e44541-2374-42cd-bc7e-d329180377be"),
                             Name = "CSS"
                         },
                         new
                         {
-                            Id = new Guid("061d2bcb-9059-478d-a340-a8e55a09becd"),
+                            Id = new Guid("928beb59-3c77-4c20-9e44-cfca965c5697"),
                             Name = "XML"
                         },
                         new
                         {
-                            Id = new Guid("f853df7d-fd26-47bd-876a-c41a6e0c29f4"),
+                            Id = new Guid("9d474497-6a65-41df-8fa3-ce3b54067154"),
                             Name = "JSON"
                         },
                         new
                         {
-                            Id = new Guid("92602255-34fa-4dc1-8315-3524869623ec"),
+                            Id = new Guid("62b447ab-efd5-435d-896c-bd63cc361d73"),
                             Name = "Bash"
                         },
                         new
                         {
-                            Id = new Guid("525b4ef4-ea45-418f-b989-51e250cf8118"),
+                            Id = new Guid("99e8cf9d-319f-49d0-a0a6-94eb2c2870b1"),
                             Name = "PowerShell"
                         },
                         new
                         {
-                            Id = new Guid("5d7ce162-7f22-41e1-94cc-6c704ba0d6a4"),
+                            Id = new Guid("b2fdd6e8-6cd5-48cf-b201-26dbc4709473"),
                             Name = "Pascal"
                         },
                         new
                         {
-                            Id = new Guid("f0ad1e46-7d30-46de-9628-5df5b4705d34"),
+                            Id = new Guid("242d93de-a9c3-48a7-8e7b-099fb20c98a6"),
                             Name = "Racket"
                         },
                         new
                         {
-                            Id = new Guid("2673252f-31e3-4027-9e2a-2e9b11826d33"),
+                            Id = new Guid("e162360a-256b-4744-a8e5-988cc6cdc506"),
                             Name = "Ada"
                         });
                 });
@@ -598,19 +600,6 @@ namespace CourseFlow.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8a4ee6b6-15dc-4fa7-9d76-f72b3a91f526"),
-                            Author = "",
-                            DateCreated = new DateTime(2023, 10, 23, 20, 6, 48, 720, DateTimeKind.Local).AddTicks(2443),
-                            Description = "This is a course for unassigned lessons",
-                            IsPublic = false,
-                            Price = 100000,
-                            Thumbnail = "https://img-c.udemycdn.com/course/750x422/473160_d929_3.jpg",
-                            Title = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("CourseFlow.Models.CourseCategory", b =>
@@ -634,7 +623,7 @@ namespace CourseFlow.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CourseId")
+                    b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -754,9 +743,7 @@ namespace CourseFlow.Migrations
                 {
                     b.HasOne("CourseFlow.Models.Course", "Course")
                         .WithMany("Lessons")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
                 });

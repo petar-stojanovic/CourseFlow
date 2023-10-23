@@ -129,5 +129,15 @@ public class DataContext : DbContext
                     Name = categoryName
                 });
         }
+        
+        modelBuilder.Entity<Course>().HasData(
+            new Course
+            {
+                Id = Guid.NewGuid(),
+                Title = "Admin",
+                Price = 100000,
+                Description = "This is a course for unassigned lessons",
+                Thumbnail = "https://img-c.udemycdn.com/course/750x422/473160_d929_3.jpg" 
+            });
     }
 }

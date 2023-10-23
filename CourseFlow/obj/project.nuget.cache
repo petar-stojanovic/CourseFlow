@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Y7UzLz4xJ/2OEAzbg0cNeV8Np1damCk6pja8vdFdk0VdL4YeAJuZ+ZxYPcE6KO5WsfyvQZmjePzUeRnh9jyarg==",
+  "dgSpecHash": "dPVeaADuzT+5Hr+Vmfa8cBg3BrbMpm27t/0FTjDfo1ynCyIgyTt+6eTfvTX8yrn9du/rV100jgZP49EgQSOyFA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Petar\\Desktop\\CourseFlow\\CourseFlow\\CourseFlow.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Petar\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\Petar\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\Petar\\.nuget\\packages\\exceldatareader\\3.7.0-develop00385\\exceldatareader.3.7.0-develop00385.nupkg.sha512",
     "C:\\Users\\Petar\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Petar\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.1\\microsoft.aspnetcore.authentication.jwtbearer.6.0.1.nupkg.sha512",
     "C:\\Users\\Petar\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
