@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Category } from 'src/interfaces/Category';
 import { Course } from 'src/interfaces/Course';
-import { Lesson } from 'src/interfaces/Lesson';
 import { User } from 'src/interfaces/User';
 import { AuthService } from 'src/services/auth.service';
 import { CategoryService } from 'src/services/category.service';
@@ -25,6 +27,8 @@ export class CreateCourseComponent implements OnInit {
   user: User | null = null;
   courseForm: FormGroup | null = null;
   categoryList: Category[] | null = null;
+  isFileMethod: boolean = false;
+  isFileUploaded: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +42,32 @@ export class CreateCourseComponent implements OnInit {
     this.isLoaded = true;
   }
 
+  ngOnInit(): void {
+    this._authService.getLoggedInUser().subscribe((user) => {
+      if (user == null) {
+        this.router.navigateByUrl('login');
+      } else {
+        this.user = user;
+      }
+    });
+
+    this.courseForm!.get('isFileMethod')?.valueChanges.subscribe(
+      (isFileMethod: boolean) => {
+        if (isFileMethod) {
+          this.courseForm?.removeControl('lessons');
+        } else {
+          this.courseForm?.addControl('lessons', this.fb.array([]));
+          this.addLesson();
+        }
+        this.courseForm?.updateValueAndValidity();
+      }
+    );
+  }
+
+  onSlideToggleChange(event: any) {
+    this.isFileMethod = !this.isFileMethod;
+  }
+
   createForm() {
     this.courseForm = this.fb.group({
       title: ['Course Title', Validators.required],
@@ -49,8 +79,15 @@ export class CreateCourseComponent implements OnInit {
       price: [10, Validators.required],
       categories: [[], Validators.required],
       lessons: this.fb.array([]),
+      isFileMethod: [false],
+      isFileUploaded: [false],
     });
+
+    this.addLesson();
   }
+
+
+
 
   fetchCategories() {
     this._categoryService.getAllCategories().subscribe((res) => {
@@ -58,21 +95,11 @@ export class CreateCourseComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this._authService.getLoggedInUser().subscribe((user) => {
-      if (user == null) {
-        this.router.navigateByUrl('login');
-      } else {
-        this.user = user;
-      }
-    });
-  }
-
   addLesson() {
     const lessonGroup = this.fb.group({
-      description: ['Lesson Description'],
+      description: ['', Validators.required],
       url: [
-        'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        '',
         [
           Validators.required,
           Validators.pattern(
@@ -98,5 +125,17 @@ export class CreateCourseComponent implements OnInit {
     this._courseService.createCourse(formData as Course).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      this.isFileUploaded = true;
+      this.courseForm?.get('isFileUploaded')?.setValue(true);
+      this.courseForm?.updateValueAndValidity();
+      this._courseService.createLessonsFromFile(formData).subscribe();
+    }
   }
 }

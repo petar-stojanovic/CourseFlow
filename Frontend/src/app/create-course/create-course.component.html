@@ -40,7 +40,17 @@
         </mat-form-field>
 
 
-        <div formArrayName="lessons">
+        <mat-slide-toggle formControlName="isFileMethod" (change)="onSlideToggleChange($event)" class="my-2">Import Lessons with CSV
+          File</mat-slide-toggle>
+
+        <div *ngIf="isFileMethod">
+          <!-- File Upload Form -->
+          <input type="file" class="form-control my-2" (change)="onFileChange($event)" accept=".csv" />
+          <!-- <button mat-raised-button color="primary" (click)="uploadCSV()">Upload CSV</button> -->
+        </div>
+
+
+        <div formArrayName="lessons" *ngIf="!isFileMethod">
           <div *ngFor="let lesson of lessons.controls; let i = index" class="lesson-group">
             <ng-container [formGroupName]="i">
 
@@ -65,7 +75,7 @@
 
         <button mat-raised-button color="primary" type="button" (click)="addLesson()">Add Lesson</button>
 
-        <button type="submit" mat-raised-button color="primary" class="mt-1" [disabled]="courseForm.invalid">
+        <button type="submit" mat-raised-button color="primary" class="mt-1" [disabled]="courseForm.invalid || isFileMethod===true && isFileUploaded===false">
           Create Course </button>
 
       </form>

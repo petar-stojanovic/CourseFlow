@@ -32,7 +32,9 @@ public class CourseRepository : ICourseRepository
 
     public List<Course> GetAllPrivateCourses()
     {
-        return _context.Courses.Where(c => c.IsPublic == false).ToList();
+        return _context.Courses.Where(c =>
+            c.IsPublic == false && c.Title != "Admin" &&
+            c.Description != "This is a course for unassigned lessons").ToList();
     }
 
     public List<Course> GetAllPublicCourses()

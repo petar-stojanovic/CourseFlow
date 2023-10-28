@@ -3,13 +3,19 @@
     <a routerLink="" class="logo">CourseFlow</a>
   </div>
   <span class="example-spacer"></span>
-  <div class="d-flex align-items-center">
-    <button *ngIf="user" mat-stroked-button color="primary" class="bg-white" routerLink="/user">
+  <div class="d-flex align-items-center" *ngIf="user">
+    <button mat-stroked-button color="primary" class="bg-white" routerLink="/user">
       {{ user.username }}
     </button>
-    <a routerLink="/course/create" mat-icon-button>
-      <mat-icon>library_add</mat-icon>
+    <a *ngIf="user.username == 'admin'; else add" routerLink="/course/all-non-public" mat-icon-button>
+      <mat-icon>folder</mat-icon>
     </a>
+    <ng-template #add>
+
+      <a routerLink="/course/create" mat-icon-button>
+        <mat-icon>library_add</mat-icon>
+      </a>
+    </ng-template>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>

@@ -1,7 +1,20 @@
+.example-card {
+  margin: 3rem;
+}
+
 .spinner {
   height: calc(100vh - 128px);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mat-mdc-card {
+  margin: 0.75rem 0
+}
+
+.word {
+  overflow-y: auto;
+  max-height: 6rem;
 }

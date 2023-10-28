@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,6 +35,8 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseComponent } from './course/course.component';
 import { VideoComponent } from './video/video.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { AllNonPublicCoursesComponent } from './all-non-public-courses/all-non-public-courses.component';
+import { DialogConfirmationComponent } from './dialog-confirmation/dialog-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     CreateCourseComponent,
     CourseComponent,
     VideoComponent,
+    AllNonPublicCoursesComponent,
+    DialogConfirmationComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,8 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     BrowserAnimationsModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    MatDialogModule
   ],
   providers: [
     {

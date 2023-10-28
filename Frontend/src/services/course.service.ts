@@ -58,7 +58,7 @@ export class CourseService {
     userId: string | undefined,
     courseId: string
   ): Observable<boolean> {
-    console.log(userId,courseId)
+    console.log(userId, courseId);
     if (!userId) {
       return of(false);
     }
@@ -66,5 +66,13 @@ export class CourseService {
       userId: userId,
       courseId: courseId,
     });
+  }
+
+  createLessonsFromFile(file: any): Observable<any> {
+    return this._http.post<any>(`${this.url}/createLessonsForCourse`, file);
+  }
+
+  makeCoursePublic(courseId: string): Observable<Course> {
+    return this._http.get<Course>(`${this.url}/makeCoursePublic/${courseId}`);
   }
 }

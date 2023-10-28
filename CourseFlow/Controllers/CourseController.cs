@@ -56,23 +56,61 @@ public class CourseController : ControllerBase
         }
 
         // Map the CourseInputModel to your Course entity
-        var course = new Course
+        Course course;
+        if (courseDto.Lessons != null)
         {
-            Title = courseDto.Title,
-            Description = courseDto.Description,
-            Author = courseDto.Author.Username,
-            Thumbnail = courseDto.Thumbnail,
-            Price = courseDto.Price,
-            Lessons = courseDto.Lessons.Select(lessonInput => new Lesson
+            course = new Course
             {
-                Description = lessonInput.Description,
-                Url = lessonInput.Url
-            }).ToList()
-        };
+                Title = courseDto.Title,
+                Description = courseDto.Description,
+                Author = courseDto.Author.Username,
+                Thumbnail = courseDto.Thumbnail,
+                Price = courseDto.Price,
+                Lessons = courseDto.Lessons.Select(lessonInput => new Lesson
+                {
+                    Description = lessonInput.Description,
+                    Url = lessonInput.Url
+                }).ToList()
+            };
+        }
+        else
+        {
+            course = new Course
+            {
+                Id = Guid.NewGuid(),
+                Title = courseDto.Title,
+                Description = courseDto.Description,
+                Author = courseDto.Author.Username,
+                Thumbnail = courseDto.Thumbnail,
+                Price = courseDto.Price,
+                Lessons = _context.Lessons.Where(l =>
+                        l.Course.Title == "Admin" && l.Course.Description == "This is a course for unassigned lessons")
+                    .ToList()
+            };
+            var lessons = _context.Lessons.Where(l =>
+                l.Course.Title == "Admin" && l.Course.Description == "This is a course for unassigned lessons");
+            foreach (var lesson in lessons)
+            {
+                lesson.Course = course;
+                _context.Lessons.Update(lesson);
+            }
+        }
+
 
         //TODO            Categories = courseDto.Categories,
 
-
+        foreach (var cat in courseDto.Categories)
+        {
+            var category = new CourseCategory
+            {
+                Category = _context.Categories.FirstOrDefault(c => c.Id.ToString() == cat),
+                Course = course,
+                CourseId = course.Id,
+                CategoryId = _context.Categories.FirstOrDefault(c => c.Id.ToString() == cat).Id
+                
+            };
+            _context.CourseCategories.Update(category);
+        }
         try
         {
             // Add the course and its related lessons to the database
@@ -140,7 +178,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPost("enroll")]
-    public async Task<IActionResult> EnrollUsertoCourse([FromBody] UserTakesCourseDTO userTakesCourseDto)
+    public async Task<IActionResult> EnrollUserToCourse([FromBody] UserTakesCourseDTO userTakesCourseDto)
     {
         var userTakesCourse = new UserTakesCourse
         {
@@ -171,6 +209,16 @@ public class CourseController : ControllerBase
         var userTakesCourse = _context.UserTakesCourses.FirstOrDefault(utc =>
             utc.CourseId == userTakesCourseDto.CourseId && utc.UserId == userTakesCourseDto.UserId);
         return userTakesCourse != null;
+    }
+
+    [HttpGet("makeCoursePublic/{courseId}")]
+    public ActionResult<Course> MakeCoursePublic(Guid courseId)
+    {
+        var course = _context.Courses.FirstOrDefault(c => c.Id == courseId);
+        // _context
+        course.IsPublic = true;
+        _context.SaveChanges();
+        return course;
     }
 
     private async Task<YouTubeVideoData> GetYoutubeLinkDetails(string videoUrl)

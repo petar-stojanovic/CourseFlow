@@ -1,0 +1,33 @@
+<div class="spinner" *ngIf="!isLoaded">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container" *ngIf="isLoaded">
+
+  <div class="row">
+    <div class="col-md-6 col-lg-4 col-sm-12" *ngFor="let course of courseList">
+      <mat-card class="border-0 p-0 my-3 d-flex justify-content-between" style="min-height: 500px">
+        <div>
+          <img [src]="course.thumbnail" [alt]="course.title" [title]="course.title" style="max-width: 100%;">
+          <mat-card-header class="mb-2">
+            <mat-card-title>
+              <a routerLink="/course/{{ course.id }}/lessons" class="text-decoration-none">{{ course.title }}</a>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content style="height: 7.5rem;">
+            <p class="word">
+              {{ course.description }}
+            </p>
+          </mat-card-content>
+        </div>
+        <div class="text-center mb-3">
+          <button mat-raised-button color="accent" (click)="openConfirmationDialog(course.id)">
+            Make Public
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

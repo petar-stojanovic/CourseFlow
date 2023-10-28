@@ -60,22 +60,26 @@
 
 
 
-<div class="col-md-12 col-lg-6 col-md-6 order-2 order-lg-1 order-xl-1 order-xxl-1 mx-auto"
+<div class="col-lg-6 col-md-8 col-sm-8 order-2 order-lg-1 order-xl-1 order-xxl-1 mx-auto"
   *ngIf="course?.author?.id != user?.id && !userTakesCourse">
-  <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
+  <div class="mx-2">
 
-  <p class="fs-5 word">{{ course?.description }}</p>
-  <h3>
-    <span class="fw-medium"> Author:</span> {{ course?.author?.username }}
-  </h3>
-  <h2>Course Content</h2>
-  <ol class="list-group list-group-numbered">
-    <li class="list-group-item d-flex justify-content-between align-items-start"
-      *ngFor="let lesson of lessons; let i = index">
-      <div class="ms-2 me-auto">
-        <div class="fw-bold">{{ lesson.title }}</div>
-        <p class="word">{{ lesson.description }}</p>
-      </div>
-    </li>
-  </ol>
+    <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
+
+    <p class="fs-5 word">{{ course?.description }}</p>
+    <h3>
+      <span class="fw-medium"> Author:</span> {{ course?.author?.username }}
+    </h3>
+    <h2>Course Content</h2>
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start"
+        *ngFor="let lesson of lessons; let i = index">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">{{ lesson.title }}</div>
+          <p class="word">{{ lesson.description }}</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
 </div>

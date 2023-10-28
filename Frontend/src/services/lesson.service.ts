@@ -14,4 +14,6 @@ export class LessonService {
   getLessonsByCourseId(courseId: string): Observable<Lesson[]> {
     return this._http.get<Lesson[]>(`${this.url}/${courseId}`);
   }
+
+
 }

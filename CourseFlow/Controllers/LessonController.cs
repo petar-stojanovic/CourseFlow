@@ -13,7 +13,7 @@ public class LessonController : ControllerBase
 {
     private readonly ILessonRepository _lessonRepository;
     private readonly DataContext _context;
-
+    
     public LessonController(ILessonRepository lessonRepository, DataContext dataContext)
     {
         _lessonRepository = lessonRepository;

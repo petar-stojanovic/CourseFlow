@@ -5,6 +5,7 @@ using CourseFlow.Repository.CategoryRepository;
 using CourseFlow.Repository.CourseRepository;
 using CourseFlow.Repository.LessonRepository;
 using CourseFlow.Repository.UserRepository;
+using CourseFlow.Services;
 using CourseFlow.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddHostedService<ScheduledService>();
+builder.Services.AddScoped<ScheduledService>();
+builder.Services.AddSingleton<ScheduledService>();
+
+// builder.Services.AddScoped<ILessonRepository, ScheduledService>();
+
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
