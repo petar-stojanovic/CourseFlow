@@ -25,6 +25,8 @@ builder.Services.AddHostedService<ScheduledService>();
 builder.Services.AddScoped<ScheduledService>();
 builder.Services.AddSingleton<ScheduledService>();
 
+
+
 // builder.Services.AddScoped<ILessonRepository, ScheduledService>();
 
 

@@ -1,12 +1,17 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, map } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import { Course } from 'src/interfaces/Course';
 import { Lesson } from 'src/interfaces/Lesson';
+import { Progress } from 'src/interfaces/Progress';
+import { StripeCheckout } from 'src/interfaces/StripeCheckout';
 import { User } from 'src/interfaces/User';
 import { AuthService } from 'src/services/auth.service';
 import { CourseService } from 'src/services/course.service';
 import { LessonService } from 'src/services/lesson.service';
+
 
 @Component({
   selector: 'app-course',
@@ -19,22 +24,25 @@ export class CourseComponent implements OnInit {
   user: User | null = null;
   userTakesCourse = false;
   courseId = this.route.snapshot.paramMap.get('id');
-  progress: number | undefined;
   uncompletedLessonIds: number[] | undefined;
   isLoaded = false;
+  progress: Progress | undefined;
+
 
   constructor(
     private _lessonService: LessonService,
     private route: ActivatedRoute,
     private _courseService: CourseService,
     private _authService: AuthService,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
-    this._authService.getLoggedInUser().subscribe(user =>{
-      this.user = user
-    }),
+    this._authService.getLoggedInUser().subscribe((user) => {
+      this.user = user;
+      console.log(user?.username);
+    });
 
     forkJoin([
       this._courseService.getCourseById(this.courseId!!),
@@ -43,6 +51,7 @@ export class CourseComponent implements OnInit {
       //TODO: Author Course and categories
       //TODO: UserTakesCourse
       this._courseService.checkTakesCourse(this.user?.id, this.courseId!!),
+      // this._lessonService.getUserProgress(this.courseId!!, this.user?.id),
       // this.courseService.getProgress(this.courseId, this.user?.id),
     ])
       .pipe(
@@ -53,6 +62,7 @@ export class CourseComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.course = data.course;
+        // console.log(data);
         this.lessons = data.lessons;
         this.userTakesCourse = data.userTakesCourse;
         // this.takesCourse = data.userTakesCourse;
@@ -60,6 +70,24 @@ export class CourseComponent implements OnInit {
         // this.uncompletedLessonIds = data.userProgress.uncompletedLessonIds;
         this.isLoaded = true;
       });
+
+    this.getProgress();
+  }
+
+  getProgress() {
+    this._lessonService
+      .getUserProgress(this.courseId!!, this.user?.id)
+      .subscribe(
+        (progress) => {
+          this.progress = progress;
+          console.log(progress, this.lessons);
+        },
+        (error) => {
+          if (error.status === 404) {
+            console.log('Course not found.');
+          }
+        }
+      );
   }
 
   enrollCourse(courseId: string) {
@@ -77,6 +105,7 @@ export class CourseComponent implements OnInit {
 
   reloadPage() {
     const currentUrl = this.router.url;
+    console.log(this.progress);
     this.router
       .navigateByUrl('/blank', { skipLocationChange: true })
       .then(() => {
@@ -84,27 +113,56 @@ export class CourseComponent implements OnInit {
       });
   }
 
-  onStateChange(event: YT.OnStateChangeEvent) {
+  onStateChange(event: YT.OnStateChangeEvent, lessonId: string) {
     console.log(event);
     if (event.data === YT.PlayerState.ENDED) {
       // Video has finished playing; you can send your request or perform an action here
       console.log('Video has finished');
       // Call your function to send a request or perform some action
-      this.onVideoFinished();
+      this.onVideoFinished(lessonId);
     }
   }
 
-  onVideoFinished() {
+  onVideoFinished(lessonId: string) {
     // Perform your action when the video finishes
     // You can send your request here
+    this._lessonService
+      .completeLesson(this.user!.id, this.courseId!, lessonId)
+      .subscribe((response) => {
+        this.reloadPage();
+
+        console.log(response);
+        // setTimeout(() => {
+        //   this.reloadPage()
+        // }, 1000);
+      });
   }
 
-  // downloadCertificate() {
-  //   this.lessonService
-  //     .downloadCertificate(this.courseId, this.user?.id)
-  //     .subscribe((res) => {
-  //       const fileURL = URL.createObjectURL(res);
-  //       window.open(fileURL, '_blank');
-  //     });
-  // }
+  isLessonCompleted(lessonId: string): boolean {
+    if (this.progress == null) {
+      return false;
+    }
+    return this.progress?.completedLessons.includes(lessonId);
+  }
+
+  formatDate(dateString: string): string {
+    const formattedDate = this.datePipe.transform(dateString, 'MMMM d, y');
+    return formattedDate || 'Invalid Date'; // Handle invalid dates if needed
+  }
+
+  downloadCertificate() {
+    this._courseService
+      .downloadCertificate(this.user!.id, this.course!.id)
+      .subscribe((data) => {
+        console.log(data);
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const fileName = 'Certificate.pdf';
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  }
 }

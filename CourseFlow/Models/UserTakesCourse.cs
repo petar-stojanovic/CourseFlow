@@ -1,4 +1,6 @@
-﻿namespace CourseFlow.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CourseFlow.Models;
 
 public class UserTakesCourse
 {
@@ -11,4 +13,10 @@ public class UserTakesCourse
     public Course Course { get; set; }
 
     public int Progress { get; set; } = 0;
+
+    public DateTime StartDate { get; set; } = DateTime.Now;
+    
+    public DateTime? EndDate { get; set; }
+    
+    public string CompletedLessonIds { get; set; } = string.Empty;
 }

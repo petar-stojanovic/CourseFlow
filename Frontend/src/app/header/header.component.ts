@@ -15,6 +15,7 @@ export class HeaderComponent {
 
   logout() {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('user_data');
     location.href = '/';
   }
 }

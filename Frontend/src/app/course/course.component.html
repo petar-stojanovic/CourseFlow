@@ -15,33 +15,48 @@
 
       <!-- *ngIf="course?.author?.id != user?.id && !takesCourse && user" -->
       <!-- (click)="enrollStudent(course!!.id)" -->
-      <button mat-raised-button *ngIf="!userTakesCourse" color="primary" class="my-3 w-50"
-        (click)="enrollCourse(courseId!!)">
+      <button mat-raised-button
+        *ngIf="user != null && !userTakesCourse && user?.username != 'admin' && course?.author != user?.username"
+        color="primary" class="my-3 w-50" (click)="enrollCourse(courseId!!)">
         Enroll now
       </button>
 
     </div>
-    <div class="col-md-12 col-lg-8 col-md-6 mx-auto" *ngIf="course?.author?.id == user?.id || userTakesCourse">
+    <div class="col-md-12 col-lg-8 col-md-6 mx-auto"
+      *ngIf="user != null && course?.author?.id == user?.id || userTakesCourse; else notTakenCourse">
       <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
+
+      <div class="fw-bold fs-3 font-monospace my-3">{{formatDate(course!.dateCreated)}}</div>
 
       <p class="fs-5 word">{{ course?.description }}</p>
       <h3>
-        <span class="fw-medium"> Author:</span> {{ course?.author?.username }}
+        <span class="fw-medium"> Author:</span> {{ course?.author }}
       </h3>
       <h3 *ngIf="course?.author?.id != user?.id">
         <span class="fw-medium"> Your Progress:</span>
-        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="progress?.progressPercentage"></mat-progress-bar>
+        <div *ngIf="progress?.progressPercentage === 100 && user != null" class="my-3 text-center">
+          <button mat-raised-button color="primary" (click)="downloadCertificate()">
+            Download Certificate
+            <mat-icon>insert_drive_file</mat-icon>
+          </button>
+        </div>
       </h3>
       <h2>Course Content</h2>
       <mat-accordion>
         <mat-expansion-panel hideToggle *ngFor="let lesson of lessons; let i = index" class="d-flex flex-column">
           <mat-expansion-panel-header>
-            <mat-panel-title>Lesson {{ i + 1 }}:<span class="text-secondary ms-2">{{
+            <mat-panel-title>Lesson {{ i + 1 }}:
+              <span class="text-secondary ms-2">{{
                 lesson.title
                 }}</span></mat-panel-title>
+            <mat-icon *ngIf="!isLessonCompleted(lesson.id); else green" class="gray">check_circle_outline</mat-icon>
+            <ng-template #green><mat-icon class="green">check_circle_outline</mat-icon></ng-template>
+
+
           </mat-expansion-panel-header>
           <p class="word">{{ lesson.description }}</p>
-          <youtube-player videoId="dQw4w9WgXcQ" (stateChange)="onStateChange($event)"></youtube-player>
+          <youtube-player videoId="dQw4w9WgXcQ" (stateChange)="onStateChange($event, lesson.id)"></youtube-player>
 
         </mat-expansion-panel>
       </mat-accordion>
@@ -50,26 +65,23 @@
 
 
   </div>
-  <!-- <div *ngIf="progress === 100">
-    <button mat-raised-button color="primary" (click)="downloadCertificate()">
-      Download Certificate
-      <mat-icon>insert_drive_file</mat-icon>
-    </button>
-  </div> -->
+
 </div>
 
 
 
-<div class="col-lg-6 col-md-8 col-sm-8 order-2 order-lg-1 order-xl-1 order-xxl-1 mx-auto"
-  *ngIf="course?.author?.id != user?.id && !userTakesCourse">
+<ng-template #notTakenCourse class="col-lg-6 col-md-8 col-sm-8 order-2 order-lg-1 order-xl-1 order-xxl-1 mx-auto">
   <div class="mx-2">
-
     <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
+
+    <div class="fw-bold fs-3 font-monospace my-3">{{formatDate(course!.dateCreated)}}</div>
+
 
     <p class="fs-5 word">{{ course?.description }}</p>
     <h3>
-      <span class="fw-medium"> Author:</span> {{ course?.author?.username }}
+      <span class="fw-medium"> Author:</span> {{ course?.author }}
     </h3>
+
     <h2>Course Content</h2>
     <ol class="list-group list-group-numbered">
       <li class="list-group-item d-flex justify-content-between align-items-start"
@@ -82,4 +94,4 @@
     </ol>
   </div>
 
-</div>
+</ng-template>

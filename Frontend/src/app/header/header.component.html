@@ -10,6 +10,9 @@
     <a *ngIf="user.username == 'admin'; else add" routerLink="/course/all-non-public" mat-icon-button>
       <mat-icon>folder</mat-icon>
     </a>
+    <a routerLink="/course/all-non-public" mat-icon-button>
+      <mat-icon>folder</mat-icon>
+    </a>
     <ng-template #add>
 
       <a routerLink="/course/create" mat-icon-button>

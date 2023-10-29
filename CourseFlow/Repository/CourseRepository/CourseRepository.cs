@@ -39,8 +39,25 @@ public class CourseRepository : ICourseRepository
 
     public List<Course> GetAllPublicCourses()
     {
-        return _context.Courses.Where(c => c.IsPublic == true).ToList();
-    }
+        return _context.Courses
+            .Where(c => c.IsPublic == true)
+            .Select(c => new Course
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Author = c.Author,
+                Description = c.Description,
+                Thumbnail = c.Thumbnail,
+                Price = c.Price,
+                DateCreated = c.DateCreated,
+                IsPublic = c.IsPublic,
+                // Lessons = c.Lessons,
+                CourseCategories = c.CourseCategories.Select(cc => new CourseCategory
+                {
+                    Category = new Category { Name = cc.Category.Name }
+                }).ToList()
+            })
+            .ToList();    }
 
     public Course UpdateCourse(Course course)
     {

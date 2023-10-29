@@ -3,7 +3,7 @@ using CourseFlow.Data;
 using CourseFlow.DTO;
 using CourseFlow.Models;
 using CourseFlow.Repository.CourseRepository;
-using ExcelDataReader;
+using CourseFlow.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseFlow.Controllers;
@@ -13,6 +13,7 @@ namespace CourseFlow.Controllers;
 public class CourseController : ControllerBase
 {
     private readonly ICourseRepository _courseRepository;
+
     private readonly DataContext _context;
 
     public CourseController(ICourseRepository courseRepository, DataContext dataContext)
@@ -107,10 +108,10 @@ public class CourseController : ControllerBase
                 Course = course,
                 CourseId = course.Id,
                 CategoryId = _context.Categories.FirstOrDefault(c => c.Id.ToString() == cat).Id
-                
             };
-            _context.CourseCategories.Update(category);
+            _context.CourseCategories.Add(category);
         }
+
         try
         {
             // Add the course and its related lessons to the database
@@ -186,6 +187,7 @@ public class CourseController : ControllerBase
             CourseId = userTakesCourseDto.CourseId,
             User = _context.Users.FirstOrDefault(u => u.Id == userTakesCourseDto.UserId),
             Course = _context.Courses.FirstOrDefault(c => c.Id == userTakesCourseDto.CourseId),
+            StartDate = DateTime.Now,
             Progress = 0
         };
 
@@ -253,5 +255,27 @@ public class CourseController : ControllerBase
                 throw ex;
             }
         }
+    }
+
+
+    [HttpPost("downloadCertificate")]
+    public IActionResult DownloadCertificate([FromBody] UserTakesCourseDTO request)
+    {
+        // Retrieve the user's UserTakesCourse entity based on userId and courseId
+        var userTakesCourse = _context.UserTakesCourses
+            .SingleOrDefault(utc => utc.UserId == request.UserId && utc.CourseId == request.CourseId);
+
+
+        if (userTakesCourse == null)
+        {
+            return NotFound("User course not found");
+        }
+
+        // Generate the PDF certificate
+        CertificateGenerator certificateGenerator = new CertificateGenerator(_context);
+        byte[] certificateBytes = certificateGenerator.GenerateCertificate(userTakesCourse);
+
+        // Return the PDF certificate as a downloadable file
+        return File(certificateBytes, "application/pdf", "Certificate.pdf");
     }
 }

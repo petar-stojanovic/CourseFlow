@@ -8,8 +8,14 @@ export interface Course {
   thumbnail: string;
   price: number;
   categories: string[];
-  dateTime: string;
+  dateCreated: string;
   isPublic: boolean;
   author: User;
   lessons: Lesson[];
+  courseCategories?: CourseCategories[]
+}
+
+
+export interface CourseCategories{
+  name: string;
 }

@@ -82,6 +82,9 @@ public class DataContext : DbContext
             .WithMany(cc => cc.UserTakesCourse)
             .HasForeignKey(c => c.CourseId);
         
+        
+        
+        
         SeedCategories(modelBuilder);
     }
     

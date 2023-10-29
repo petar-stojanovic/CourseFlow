@@ -86,9 +86,6 @@ export class CreateCourseComponent implements OnInit {
     this.addLesson();
   }
 
-
-
-
   fetchCategories() {
     this._categoryService.getAllCategories().subscribe((res) => {
       this.categoryList = res;
@@ -123,6 +120,7 @@ export class CreateCourseComponent implements OnInit {
     const formData = this.courseForm!!.value;
     formData.author = this.user;
     this._courseService.createCourse(formData as Course).subscribe((res) => {
+      this.router.navigate(['/']);
       console.log(res);
     });
   }
@@ -132,8 +130,11 @@ export class CreateCourseComponent implements OnInit {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-      this.isFileUploaded = true;
       this.courseForm?.get('isFileUploaded')?.setValue(true);
+      setTimeout(() => {
+        // this.router.navigate(['/']);
+        this.isFileUploaded = true;
+      }, 1000);
       this.courseForm?.updateValueAndValidity();
       this._courseService.createLessonsFromFile(formData).subscribe();
     }

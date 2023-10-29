@@ -37,6 +37,7 @@ import { VideoComponent } from './video/video.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AllNonPublicCoursesComponent } from './all-non-public-courses/all-non-public-courses.component';
 import { DialogConfirmationComponent } from './dialog-confirmation/dialog-confirmation.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { DialogConfirmationComponent } from './dialog-confirmation/dialog-confir
     MatDialogModule
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
