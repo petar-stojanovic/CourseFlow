@@ -17,8 +17,8 @@
       <!-- (click)="enrollStudent(course!!.id)" -->
       <button mat-raised-button
         *ngIf="user != null && !userTakesCourse && user?.username != 'admin' && course?.author != user?.username"
-        color="primary" class="my-3 w-50" (click)="enrollCourse(courseId!!)">
-        Enroll now
+        color="primary" class="mt-4 my-3 w-50" (click)="pay(course?.price)">
+        Enroll for ${{course?.price}}
       </button>
 
     </div>

@@ -10,22 +10,12 @@
     <a *ngIf="user.username == 'admin'; else add" routerLink="/course/all-non-public" mat-icon-button>
       <mat-icon>folder</mat-icon>
     </a>
-    <a routerLink="/course/all-non-public" mat-icon-button>
-      <mat-icon>folder</mat-icon>
-    </a>
     <ng-template #add>
 
       <a routerLink="/course/create" mat-icon-button>
         <mat-icon>library_add</mat-icon>
       </a>
     </ng-template>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/user/learn">Enrolled Courses</button>
-      <button mat-menu-item routerLink="/user/created">Created Courses</button>
-    </mat-menu>
   </div>
   <div *ngIf="!user">
     <div class="text-end">

@@ -1,17 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, forkJoin, map } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { Course } from 'src/interfaces/Course';
 import { Lesson } from 'src/interfaces/Lesson';
 import { Progress } from 'src/interfaces/Progress';
-import { StripeCheckout } from 'src/interfaces/StripeCheckout';
 import { User } from 'src/interfaces/User';
 import { AuthService } from 'src/services/auth.service';
 import { CourseService } from 'src/services/course.service';
 import { LessonService } from 'src/services/lesson.service';
-
 
 @Component({
   selector: 'app-course',
@@ -28,6 +25,7 @@ export class CourseComponent implements OnInit {
   isLoaded = false;
   progress: Progress | undefined;
 
+  handler: any = null;
 
   constructor(
     private _lessonService: LessonService,
@@ -72,6 +70,57 @@ export class CourseComponent implements OnInit {
       });
 
     this.getProgress();
+    this.loadStripe();
+  }
+
+  pay(amount: any) {
+    const all = this;
+    var handler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51NH3AwHSO1paAufOEyyqanULYupuGrWU12P6ZzCwUTyBAhnxuezcrb4OiieQKSBeAgjGbcFa45Zsrz4CqxJ3MV1R00VigmemjD',
+      locale: 'auto',
+      token: function (token: any) {
+        console.log(token);
+        all.enrollCourse(all.courseId!);
+      },
+    });
+
+    handler.open({
+      name: all.course?.title,
+      description: 'Enroll Course',
+      amount: amount * 100,
+    });
+  }
+
+  loadStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      var s = window.document.createElement('script');
+      s.id = 'stripe-script';
+      s.type = 'text/javascript';
+      s.src = 'https://checkout.stripe.com/checkout.js';
+      s.onload = () => {
+        this.handler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51NH3AwHSO1paAufOEyyqanULYupuGrWU12P6ZzCwUTyBAhnxuezcrb4OiieQKSBeAgjGbcFa45Zsrz4CqxJ3MV1R00VigmemjD',
+          locale: 'auto',
+          token: function (token: any) {
+            this.enrollCourse(this.courseId);
+          },
+        });
+      };
+
+      window.document.body.appendChild(s);
+    }
+  }
+
+  enrollCourse(courseId: string) {
+    if (!this.user) {
+      this.router.navigateByUrl('login');
+    } else {
+      this._courseService
+        .enrollUserToCourse(this.user.id, courseId)
+        .subscribe((res) => {
+          this.reloadPage();
+        });
+    }
   }
 
   getProgress() {
@@ -88,19 +137,6 @@ export class CourseComponent implements OnInit {
           }
         }
       );
-  }
-
-  enrollCourse(courseId: string) {
-    if (!this.user) {
-      this.router.navigateByUrl('login');
-    } else {
-      this._courseService
-        .enrollUserToCourse(this.user.id, courseId)
-        .subscribe((res) => {
-          this.reloadPage();
-        });
-    }
-    // this.courseService.enrollUserToCourse(courseId);
   }
 
   reloadPage() {

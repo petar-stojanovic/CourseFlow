@@ -38,6 +38,8 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AllNonPublicCoursesComponent } from './all-non-public-courses/all-non-public-courses.component';
 import { DialogConfirmationComponent } from './dialog-confirmation/dialog-confirmation.component';
 import { DatePipe } from '@angular/common';
+import { Stripe } from '@stripe/stripe-js';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { DatePipe } from '@angular/common';
     VideoComponent,
     AllNonPublicCoursesComponent,
     DialogConfirmationComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,7 @@ import { DatePipe } from '@angular/common';
     MatToolbarModule,
     ReactiveFormsModule,
     YouTubePlayerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [
     DatePipe,
