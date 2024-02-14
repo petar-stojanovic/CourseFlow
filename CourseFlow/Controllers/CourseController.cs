@@ -41,8 +41,28 @@ public class CourseController : ControllerBase
     }
 
     [HttpGet("public")]
-    public ActionResult<List<Course>> GetAllPublic()
+    public ActionResult<List<Course>> GetAllPublic(string? search, string? category)
     {
+        if (search != null && category != null)
+        {
+            return _context.Courses
+                .Where(course => course.Title.ToLower().Contains(search.ToLower()) &&
+                                 course.CourseCategories.Any(cc => cc.Category.Name.ToLower() == category.ToLower()))
+                .ToList();
+        }
+
+        if (search != null)
+        {
+            return _context.Courses.Where(course => course.Title.ToLower().Contains(search.ToLower())).ToList();
+        }
+
+        if (category != null)
+        {
+            return _context.Courses
+                .Where(course => course.CourseCategories.Any(cc => cc.Category.Name.ToLower() == category.ToLower()))
+                .ToList();
+        }
+
         return _courseRepository.GetAllPublicCourses();
     }
 
@@ -69,6 +89,7 @@ public class CourseController : ControllerBase
                 Price = courseDto.Price,
                 Lessons = courseDto.Lessons.Select(lessonInput => new Lesson
                 {
+                    Title = lessonInput.Title,
                     Description = lessonInput.Description,
                     Url = lessonInput.Url
                 }).ToList()

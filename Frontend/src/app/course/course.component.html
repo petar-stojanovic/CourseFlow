@@ -7,14 +7,9 @@
 <div class="container pb-5" *ngIf="isLoaded">
   <div class="mt-4 d-flex flex-column">
     <div *ngIf="course?.id" class="col-lg-8 col-md-12 text-center mb-3 mx-auto">
-      <!-- <app-thumbnail
-        [courseId]="course!!.id"
-        thumbnail_class="thumbnail_lesson"
-      ></app-thumbnail> -->
+
       <img [src]="course?.thumbnail" width="512" />
 
-      <!-- *ngIf="course?.author?.id != user?.id && !takesCourse && user" -->
-      <!-- (click)="enrollStudent(course!!.id)" -->
       <button mat-raised-button
         *ngIf="user != null && !userTakesCourse && user?.username != 'admin' && course?.author != user?.username"
         color="primary" class="mt-4 my-3 w-50" (click)="pay(course?.price)">
@@ -23,7 +18,7 @@
 
     </div>
     <div class="col-md-12 col-lg-8 col-md-6 mx-auto"
-      *ngIf="user != null && course?.author?.id == user?.id || userTakesCourse; else notTakenCourse">
+      *ngIf="userTakesCourse || user?.username == 'admin' || course != null && user != null && course.author == user.username ; else notTakenCourse">
       <div class="display-5 my-3 text-center fw-bold">{{ course?.title }}</div>
 
       <div class="fw-bold fs-3 font-monospace my-3">{{formatDate(course!.dateCreated)}}</div>
@@ -32,7 +27,7 @@
       <h3>
         <span class="fw-medium"> Author:</span> {{ course?.author }}
       </h3>
-      <h3 *ngIf="course?.author?.id != user?.id">
+      <h3 *ngIf="user!.username != 'admin' && user!.username != course!.author">
         <span class="fw-medium"> Your Progress:</span>
         <mat-progress-bar mode="determinate" [value]="progress?.progressPercentage"></mat-progress-bar>
         <div *ngIf="progress?.progressPercentage === 100 && user != null" class="my-3 text-center">
@@ -42,6 +37,7 @@
           </button>
         </div>
       </h3>
+      <!-- {{course?.author}} {{user?.username}} {{userTakesCourse}} -->
       <h2>Course Content</h2>
       <mat-accordion>
         <mat-expansion-panel hideToggle *ngFor="let lesson of lessons; let i = index" class="d-flex flex-column">
@@ -56,13 +52,12 @@
 
           </mat-expansion-panel-header>
           <p class="word">{{ lesson.description }}</p>
-          <youtube-player videoId="dQw4w9WgXcQ" (stateChange)="onStateChange($event, lesson.id)"></youtube-player>
+          <youtube-player [videoId]="lesson.url.split('https://www.youtube.com/watch?v=')[1]"
+            (stateChange)="onStateChange($event, lesson.id)"></youtube-player>
 
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-
-
 
   </div>
 

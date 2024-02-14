@@ -32,7 +32,6 @@ export class AllCoursesComponent implements OnInit {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = params['search'] || null;
@@ -57,10 +56,12 @@ export class AllCoursesComponent implements OnInit {
       });
   }
 
-  getPublicCourses(search?: string, categoryName?: string) {
-    this._courseService.getAllPublicCourses(search, categoryName).subscribe((result) => {
-      this.courseList = result;
-      this.isLoaded = true;
-    });
+  getPublicCourses(search?: string, category?: string) {
+    this._courseService
+      .getAllPublicCourses(search, category)
+      .subscribe((result) => {
+        this.courseList = result;
+        this.isLoaded = true;
+      });
   }
 }

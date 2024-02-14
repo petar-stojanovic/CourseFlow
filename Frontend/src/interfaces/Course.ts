@@ -10,7 +10,7 @@ export interface Course {
   categories: string[];
   dateCreated: string;
   isPublic: boolean;
-  author: User;
+  author: string;
   lessons: Lesson[];
   courseCategories?: CourseCategories[]
 }

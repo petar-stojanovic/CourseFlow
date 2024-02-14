@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Course } from 'src/interfaces/Course';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -20,20 +19,15 @@ export class CourseService {
     return this._http.get<Course[]>(`${this.url}/private`);
   }
 
-  getAllPublicCourses(
-    search?: string,
-    categoryName?: string
-  ): Observable<Course[]> {
+  getAllPublicCourses(search?: string, category?: string): Observable<Course[]> {
     let queryParams = new HttpParams();
-    if (search && categoryName) {
+    if (search) {
       queryParams = queryParams.append('search', search);
-      queryParams = queryParams.append('categoryName', categoryName);
-    } else if (search) {
-      queryParams = queryParams.append('search', search);
-    } else if (categoryName) {
-      queryParams = queryParams.append('categoryName', categoryName);
     }
-
+    if (category){
+      queryParams = queryParams.append('category', category);
+    }
+    
     return this._http.get<Course[]>(`${this.url}/public`, {
       params: queryParams,
     });

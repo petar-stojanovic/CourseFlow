@@ -70,10 +70,13 @@ export class CreateCourseComponent implements OnInit {
 
   createForm() {
     this.courseForm = this.fb.group({
-      title: ['Course Title', Validators.required],
-      description: ['Course Description', Validators.required],
+      title: ['Best C# Tutorials', Validators.required],
+      description: [
+        'Learn C# using the best tutorials available on YouTuvbe',
+        Validators.required,
+      ],
       thumbnail: [
-        'https://img-c.udemycdn.com/course/750x422/473160_d929_3.jpg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxl_1NJZktx1B6lBUhR4RyKZBavjUdYYEdYg&usqp=CAU',
         Validators.required,
       ],
       price: [10, Validators.required],
@@ -94,9 +97,13 @@ export class CreateCourseComponent implements OnInit {
 
   addLesson() {
     const lessonGroup = this.fb.group({
-      description: ['', Validators.required],
+      title: ['C# Tutorial - Full Course for Beginners', Validators.required],
+      description: [
+        "This course will give you a full introduction into all of the core concepts in C# (aka C Sharp). Follow along with the course and you'll be a C# programmer in no time!",
+        Validators.required,
+      ],
       url: [
-        '',
+        'https://www.youtube.com/watch?v=GhQdlIFylQ8',
         [
           Validators.required,
           Validators.pattern(

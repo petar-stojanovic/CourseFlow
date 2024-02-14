@@ -40,7 +40,8 @@
         </mat-form-field>
 
 
-        <mat-slide-toggle formControlName="isFileMethod" (change)="onSlideToggleChange($event)" class="my-2">Import Lessons with CSV
+        <mat-slide-toggle formControlName="isFileMethod" (change)="onSlideToggleChange($event)" class="my-2">Import
+          Lessons with CSV
           File</mat-slide-toggle>
 
         <div *ngIf="isFileMethod">
@@ -58,6 +59,12 @@
                   mat-icon-button size="30" color="warn"
                   (click)="removeLesson(i)"><mat-icon>remove_circle</mat-icon></button>
               </h4>
+
+              <mat-form-field>
+                <mat-label>Lesson Title</mat-label>
+                <input matInput placeholder="Lesson title" formControlName="title">
+              </mat-form-field>
+
               <mat-form-field>
                 <mat-label>Lesson Description</mat-label>
                 <input matInput placeholder="Lesson Description" formControlName="description">
@@ -75,7 +82,8 @@
 
         <button mat-raised-button color="primary" type="button" (click)="addLesson()">Add Lesson</button>
 
-        <button type="submit" mat-raised-button color="primary" class="mt-1" [disabled]="courseForm.invalid || isFileMethod===true && isFileUploaded===false">
+        <button type="submit" mat-raised-button color="primary" class="mt-1"
+          [disabled]="courseForm.invalid || isFileMethod===true && isFileUploaded===false">
           Create Course </button>
 
       </form>

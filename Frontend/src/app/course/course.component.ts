@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, map } from 'rxjs';
+import { catchError, forkJoin, map, of } from 'rxjs';
 import { Course } from 'src/interfaces/Course';
 import { Lesson } from 'src/interfaces/Lesson';
 import { Progress } from 'src/interfaces/Progress';
@@ -36,6 +36,9 @@ export class CourseComponent implements OnInit {
     private datePipe: DatePipe
   ) {}
 
+  omg(x: any, y: any) {
+    console.log(x, y);
+  }
   ngOnInit() {
     this._authService.getLoggedInUser().subscribe((user) => {
       this.user = user;
@@ -45,12 +48,7 @@ export class CourseComponent implements OnInit {
     forkJoin([
       this._courseService.getCourseById(this.courseId!!),
       this._lessonService.getLessonsByCourseId(this.courseId!!),
-      // this._authService.getLoggedInUser(),
-      //TODO: Author Course and categories
-      //TODO: UserTakesCourse
       this._courseService.checkTakesCourse(this.user?.id, this.courseId!!),
-      // this._lessonService.getUserProgress(this.courseId!!, this.user?.id),
-      // this.courseService.getProgress(this.courseId, this.user?.id),
     ])
       .pipe(
         map(([course, lessons, userTakesCourse]) => {
@@ -58,14 +56,10 @@ export class CourseComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        console.log(data);
         this.course = data.course;
-        // console.log(data);
+        console.log(data);
         this.lessons = data.lessons;
         this.userTakesCourse = data.userTakesCourse;
-        // this.takesCourse = data.userTakesCourse;
-        // this.progress = data.userProgress.progress * 100;
-        // this.uncompletedLessonIds = data.userProgress.uncompletedLessonIds;
         this.isLoaded = true;
       });
 
@@ -79,7 +73,6 @@ export class CourseComponent implements OnInit {
       key: 'pk_test_51NH3AwHSO1paAufOEyyqanULYupuGrWU12P6ZzCwUTyBAhnxuezcrb4OiieQKSBeAgjGbcFa45Zsrz4CqxJ3MV1R00VigmemjD',
       locale: 'auto',
       token: function (token: any) {
-        console.log(token);
         all.enrollCourse(all.courseId!);
       },
     });
@@ -133,7 +126,6 @@ export class CourseComponent implements OnInit {
         },
         (error) => {
           if (error.status === 404) {
-            console.log('Course not found.');
           }
         }
       );
@@ -141,7 +133,7 @@ export class CourseComponent implements OnInit {
 
   reloadPage() {
     const currentUrl = this.router.url;
-    console.log(this.progress);
+    console.log(currentUrl);
     this.router
       .navigateByUrl('/blank', { skipLocationChange: true })
       .then(() => {
@@ -164,13 +156,15 @@ export class CourseComponent implements OnInit {
     // You can send your request here
     this._lessonService
       .completeLesson(this.user!.id, this.courseId!, lessonId)
+      .pipe(
+        catchError((error) => {
+          this.reloadPage();
+          return of('Error completing lesson ', error);
+        })
+      )
       .subscribe((response) => {
         this.reloadPage();
-
         console.log(response);
-        // setTimeout(() => {
-        //   this.reloadPage()
-        // }, 1000);
       });
   }
 
@@ -190,7 +184,6 @@ export class CourseComponent implements OnInit {
     this._courseService
       .downloadCertificate(this.user!.id, this.course!.id)
       .subscribe((data) => {
-        console.log(data);
         const blob = new Blob([data], { type: 'application/pdf' });
         const fileName = 'Certificate.pdf';
         const url = window.URL.createObjectURL(blob);
